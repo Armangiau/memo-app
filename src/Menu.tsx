@@ -1,32 +1,35 @@
-import { Component, ComponentProps } from 'solid-js'
+import { Component, onCleanup } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import { For } from 'solid-js/web'
-import { openDB, deleteDB, wrap, unwrap } from 'idb'
+import { open_my_DB } from './database'
+import { Link } from '@solidjs/router'
+import PlusSVGlg from './plusSVGlg'
 
-const db = await openDB('flash-cards', 1, {
-  upgrade (db) {
-    db.createObjectStore('menu-cards')
-  }
-})
+const db = await open_my_DB()
 
-await db.put('menu-cards', 7, 'keyp').catch(e => console.log(e))
-await db.put('menu-cards', 7, 'keye').catch(e => console.log(e))
-
-const DBMenuCards = await db.getAll('menu-cards')
+const DBMenuCards = await db.getAll('flash-cards')
 
 const [flashCards, setFlashCards] = createStore(DBMenuCards.reverse())
 
-const addFlashCard = async (newTitle:string) => { 
+const addFlashCard = async (newTitle: string) => {
   setFlashCards(
-    produce((flashCards) => {
-      flashCards.push(newTitle)
-    }),
+    produce(flashCards => {
+      flashCards.unshift({ name: newTitle })
+    })
   )
-  await db.put('menu-cards', newTitle, newTitle).catch(e => console.log(e))
+  await db
+    .add('flash-cards', {
+      name: newTitle,
+      questionsReseponses: {
+        "": ""
+      },
+    })
+    .catch(e => console.log(e))
 }
 
-const Menu = () => {
+const Menu: Component = () => {
   let userTitle: HTMLInputElement | undefined
+
   return (
     <>
       <div
@@ -35,16 +38,19 @@ const Menu = () => {
       >
         <For each={flashCards}>
           {flashCard => (
-            <button class='h-40 hover:bg-sky-50 text-gray-700 p-5 rounded-2xl border-sky-300 border-2 font-bold text-lg active:focus:scale-95'>
-              {flashCard}
-            </button>
+            <Link
+              href={`/flashCard/${flashCard.name}`}
+              class='h-40 hover:bg-sky-50 text-gray-700 p-5 rounded-2xl border-sky-300 border-2 font-bold text-lg active:focus:scale-95 text-center flex items-center justify-center'
+            >
+              {flashCard.name}
+            </Link>
           )}
         </For>
       </div>
 
       <label
-        class='fixed h-20 w-20 bottom-20 right-10 bg-sky-500 modal-button'
-        style='border-radius: 50%'
+        class='fixed h-20 w-20 bottom-32 right-10 bg-sky-500 modal-button'
+        style='border-radius: 50%; right: 10%'
         for='menu-modal'
       >
         <input type='checkbox' class='modal-toggle' id='menu-modal' />
@@ -74,14 +80,9 @@ const Menu = () => {
             </div>
           </div>
         </div>
-
-        <svg
-          fill='currentColor'
-          viewBox='0 0 16 16'
-          class='relative h-16 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 text-white cursor-pointer'
-        >
-          <path d='M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z' />
-        </svg>
+        <span class='text-white'>
+          <PlusSVGlg />
+        </span>
       </label>
     </>
   )
