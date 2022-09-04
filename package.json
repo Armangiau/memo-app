@@ -18,8 +18,10 @@
     "vite-plugin-solid": "^2.3.0"
   },
   "dependencies": {
+    "@solidjs/router": "^0.4.3",
+    "bootstrap-icons": "^1.9.1",
     "daisyui": "^2.24.0",
-    "dexie": "^3.2.2",
+    "idb": "^7.0.2",
     "solid-js": "^1.5.1"
   }
 }
