@@ -1,4 +1,4 @@
-import { openDB } from 'idb'
+import { openDB } from 'idb/with-async-ittr'
 
 export const open_my_DB = async () => {
   return await openDB('flash-cards', 2, {
@@ -14,4 +14,30 @@ export const open_my_DB = async () => {
       store.createIndex('name', 'name');
     }
   })
+}
+
+export const my_db = await open_my_DB()
+
+export const mise_à_jour_flashCard = async (
+  flashCardName: string,
+  modifyQuestionsRéponses: BlobCallback
+) => {
+  try {
+    const tx = my_db.transaction('flash-cards', 'readwrite')
+    const index = tx.store.index('name')
+
+    for await (const cursor of index.iterate(flashCardName)) {
+      let questRép = { ...cursor.value }
+
+      //questRép.questionsRéponses[insex].question = newVal
+      questRép = modifyQuestionsRéponses(questRép)
+
+      console.log('questRép : ', questRép)
+      cursor.update(questRép)
+    }
+
+    await tx.done
+  } catch (err) {
+    console.log('error : ', err)
+  }
 }

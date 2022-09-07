@@ -1,11 +1,13 @@
-// @ts-nocheck
-
 import { Component } from 'solid-js'
 import { lazy } from 'solid-js'
 import { Routes, Route } from '@solidjs/router'
 
 const Menu = lazy(() => import('./Menu'))
-const flashCard = lazy(() => import('./flashCard'))
+
+const flashCard = lazy(() => {
+  console.log('prblème')
+  return import('./flashCard')
+})
 
 const App: Component = () => {
   return (
@@ -14,8 +16,8 @@ const App: Component = () => {
         Audio flash-card
       </header>
       <Routes>
-        <Route path="/" component={Menu} />
-        <Route path="/flashCard/:name" component={flashCard} />
+        <Route path='/' component={Menu} />
+        <Route path='/flashCard/:name' component={flashCard} />
       </Routes>
     </>
   )

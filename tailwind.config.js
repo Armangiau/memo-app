@@ -2,19 +2,19 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  content: [
-    "./src/**/*.{ts,tsx}",
-  ],
+  content: ['./src/**/*.{ts,tsx}'],
   theme: {
-    extend: {},
-    fontFamily: {
-      'headlight' : ['Headlight', ...defaultTheme.fontFamily.sans]
+    extend: {
+      screens: {
+        '-smh': { raw: '(max-height: 640px)' }
+      },
+      fontFamily: {
+        headlight: ['Headlight', ...defaultTheme.fontFamily.sans]
+      }
     }
   },
-  plugins: [
-    require("daisyui"),
-  ],
+  plugins: [require('daisyui')],
   daisyui: {
-    themes: ["winter"],
-  },
+    themes: ['winter']
+  }
 }

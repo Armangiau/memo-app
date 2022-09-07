@@ -1,11 +1,11 @@
-import { Component, onCleanup } from 'solid-js'
+import { Component } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import { For } from 'solid-js/web'
-import { open_my_DB } from './database'
+import { my_db } from './database'
 import { Link } from '@solidjs/router'
 import PlusSVGlg from './plusSVGlg'
 
-const db = await open_my_DB()
+const db = my_db
 
 const DBMenuCards = await db.getAll('flash-cards')
 
@@ -20,9 +20,12 @@ const addFlashCard = async (newTitle: string) => {
   await db
     .add('flash-cards', {
       name: newTitle,
-      questionsReseponses: {
-        "": ""
-      },
+      questionsRéponses: [
+        {
+          question: "supre ques",
+          réponse: "colle rep 😫",
+        }
+      ],
     })
     .catch(e => console.log(e))
 }
