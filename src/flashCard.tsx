@@ -1,20 +1,19 @@
-import { Component, For, createSignal } from 'solid-js'
+import { Component, For } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import { useParams } from '@solidjs/router'
 import { my_db, mise_à_jour_flashCard } from './database'
 import PlusSVGlg from './plusSVGlg'
+import Lecture from './Lecture'
 
-const db = my_db
 const [questionsRéponses, setQuestionsRéponses] = createStore([
   {
     question: '',
     réponse: ''
-  }
+  }  
 ])
 
 const rechercheQuestionsRéponses = async (flashCardName: string) => {
-  console.log(flashCardName)
-  const flashCard = await db.getFromIndex('flash-cards', 'name', flashCardName)
+  const flashCard = await my_db.getFromIndex('flash-cards', 'name', flashCardName)
   setQuestionsRéponses(flashCard.questionsRéponses)
 }
 
@@ -57,9 +56,7 @@ const nouvelles_questionRéponse = (flashCardName: string) => {
   )
 }
 
-
 const flashCard: Component = () => {
-  console.log('pas de prob en fait');
   const flashCardName = useParams().name
 
   rechercheQuestionsRéponses(flashCardName)
@@ -70,7 +67,6 @@ const flashCard: Component = () => {
         <For each={questionsRéponses}>
           {(questionRéponse, index) => {
             const { question, réponse } = questionRéponse
-            console.log('store : ', questionRéponse, question, réponse)
             return (
               <>
                 <input
@@ -114,14 +110,7 @@ const flashCard: Component = () => {
         </div>
         <div class='h-96 w-sreen'></div>
       </div>
-      <span
-        class='fixed  h-20 w-20 bottom-32 bg-sky-500 modal-button text-white cursor-pointer -smh:hidden'
-        style='border-radius: 50%; right: 10%'
-      >
-        <svg fill='currentColor' viewBox='0 0 16 16'>
-          <path d='M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z' />
-        </svg>
-      </span>
+      <Lecture flashCardName={flashCardName} />
     </>
   )
 }

@@ -1,7 +1,7 @@
 import { openDB } from 'idb/with-async-ittr'
 
 export const open_my_DB = async () => {
-  return await openDB('flash-cards', 2, {
+  return await openDB('flash-cards', 1, {
     upgrade (db) {
       // Create a store of objects
       const store = db.createObjectStore('flash-cards', {

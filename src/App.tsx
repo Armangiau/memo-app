@@ -4,10 +4,7 @@ import { Routes, Route } from '@solidjs/router'
 
 const Menu = lazy(() => import('./Menu'))
 
-const flashCard = lazy(() => {
-  console.log('prblème')
-  return import('./flashCard')
-})
+const flashCard = lazy(() => import('./flashCard'))
 
 const App: Component = () => {
   return (

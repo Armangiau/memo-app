@@ -12,4 +12,3 @@ render(() =>
 </Router>
 , document.getElementById('root') as HTMLElement);
 
-console.log('problème');

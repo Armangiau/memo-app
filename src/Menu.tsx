@@ -5,9 +5,8 @@ import { my_db } from './database'
 import { Link } from '@solidjs/router'
 import PlusSVGlg from './plusSVGlg'
 
-const db = my_db
 
-const DBMenuCards = await db.getAll('flash-cards')
+const DBMenuCards = await my_db.getAll('flash-cards')
 
 const [flashCards, setFlashCards] = createStore(DBMenuCards.reverse())
 
@@ -17,17 +16,17 @@ const addFlashCard = async (newTitle: string) => {
       flashCards.unshift({ name: newTitle })
     })
   )
-  await db
+  await my_db
     .add('flash-cards', {
       name: newTitle,
       questionsRéponses: [
         {
-          question: "supre ques",
-          réponse: "colle rep 😫",
+          question: "",
+          réponse: "",
         }
       ],
     })
-    .catch(e => console.log(e))
+    .catch(e => console.error(e))
 }
 
 const Menu: Component = () => {
@@ -52,7 +51,7 @@ const Menu: Component = () => {
       </div>
 
       <label
-        class='fixed h-20 w-20 bottom-32 right-10 bg-sky-500 modal-button'
+        class='fixed h-20 w-20 bottom-32 bg-sky-500 modal-button'
         style='border-radius: 50%; right: 10%'
         for='menu-modal'
       >
