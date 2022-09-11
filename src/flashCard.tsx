@@ -109,6 +109,7 @@ const flashCard: Component = () => {
         <div
           class='h-14 w-14 bottom-20 right-10 bg-gray-100 modal-button mx-auto text-gray-600'
           style='border-radius: 50%'
+          tabIndex='1'
           onClick={() => nouvelles_questionRéponse(flashCardName)}
         >
           <PlusSVGlg />

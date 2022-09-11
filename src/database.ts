@@ -45,7 +45,7 @@ export const addFlashCardInDB = async (
   questionsRéponses = [
     {
       question: '',
-      reponse: ''
+      réponse: ''
     }
   ]
 ): Promise<boolean> => {
