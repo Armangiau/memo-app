@@ -1,19 +1,24 @@
-import { Component, For } from 'solid-js'
+import { Component, For, lazy } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import { useParams } from '@solidjs/router'
 import { my_db, mise_à_jour_flashCard } from './database'
 import PlusSVGlg from './plusSVGlg'
-import Lecture from './Lecture'
+
+const Lecture = lazy(() => import('./Lecture'))
 
 const [questionsRéponses, setQuestionsRéponses] = createStore([
   {
     question: '',
     réponse: ''
-  }  
+  }
 ])
 
 const rechercheQuestionsRéponses = async (flashCardName: string) => {
-  const flashCard = await my_db.getFromIndex('flash-cards', 'name', flashCardName)
+  const flashCard = await my_db.getFromIndex(
+    'flash-cards',
+    'name',
+    flashCardName
+  )
   setQuestionsRéponses(flashCard.questionsRéponses)
 }
 

@@ -1,32 +1,22 @@
 import { Component } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import { For } from 'solid-js/web'
-import { my_db } from './database'
+import { my_db, addFlashCardInDB } from './database'
 import { Link } from '@solidjs/router'
+import SaveFlashCards from './SaveFlashCards'
 import PlusSVGlg from './plusSVGlg'
-
 
 const DBMenuCards = await my_db.getAll('flash-cards')
 
 const [flashCards, setFlashCards] = createStore(DBMenuCards.reverse())
 
 const addFlashCard = async (newTitle: string) => {
+  if (await addFlashCardInDB(newTitle))
   setFlashCards(
     produce(flashCards => {
       flashCards.unshift({ name: newTitle })
     })
   )
-  await my_db
-    .add('flash-cards', {
-      name: newTitle,
-      questionsRéponses: [
-        {
-          question: "",
-          réponse: "",
-        }
-      ],
-    })
-    .catch(e => console.error(e))
 }
 
 const Menu: Component = () => {
@@ -36,13 +26,13 @@ const Menu: Component = () => {
     <>
       <div
         class='mx-auto max-w-7xl grid gap-6 justify-center p-5'
-        style='grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr))'
+        style='grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr))'
       >
         <For each={flashCards}>
           {flashCard => (
             <Link
               href={`/flashCard/${flashCard.name}`}
-              class='h-40 hover:bg-sky-50 text-gray-700 p-5 rounded-2xl border-sky-300 border-2 font-bold text-lg active:focus:scale-95 text-center flex items-center justify-center'
+              class='h-32 hover:bg-sky-50 text-gray-700 p-5 rounded-2xl border-sky-300 border-2 font-bold text-lg active:focus:scale-95 flex-center'
             >
               {flashCard.name}
             </Link>
@@ -51,7 +41,7 @@ const Menu: Component = () => {
       </div>
 
       <label
-        class='fixed h-20 w-20 bottom-32 bg-sky-500 modal-button'
+        class='fixed h-16 w-16 bottom-32 bg-sky-500 modal-button'
         style='border-radius: 50%; right: 10%'
         for='menu-modal'
       >
@@ -86,6 +76,7 @@ const Menu: Component = () => {
           <PlusSVGlg />
         </span>
       </label>
+      <SaveFlashCards />
     </>
   )
 }

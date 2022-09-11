@@ -1,41 +1,49 @@
-import { Component, ComponentProps, createSignal, Show, For, createEffect } from 'solid-js'
+import {
+  Component,
+  ComponentProps,
+  createSignal,
+  Show,
+  For,
+  createEffect
+} from 'solid-js'
 import { createStore } from 'solid-js/store'
-import { frenchVoices, speak } from './speechSynethsis'
+import { frenchVoices, speak, synth } from './speechSynethsis'
 import { my_db } from './database'
-
-interface LectureProps extends ComponentProps<any> {
-  flashCardName: string
-}
 
 const [modeLectureCards, setModeLectureCards] = createSignal(false)
 const [questionOuRéponseEnCours, setquestionOuRéponseEnCours] = createSignal('')
 
+const stopLecture = () => {
+  setModeLectureCards(false)
+  setquestionOuRéponseEnCours('')
+  synth.cancel()
+}
 
-document.addEventListener('keyup', (evt) => {
+document.addEventListener('keyup', evt => {
   if (evt.key === 'Escape') {
-    setModeLectureCards(false)
-    setquestionOuRéponseEnCours('')
+    stopLecture()
   }
 })
 
+const attendToucheEntrée = () =>
+  new Promise<void>(resolve => {
+    createEffect(() => {
+      if (!modeLectureCards()) {
+        resolve()
+      }
+    })
 
-const attendToucheEntrée = () => new Promise<void>((resolve) => {
-  createEffect(() => {
-    if (!modeLectureCards()) { resolve() }
+    document.addEventListener('keyup', evt => {
+      if (evt.key === 'Enter') {
+        resolve()
+      }
+    })
   })
-
-  document.addEventListener('keyup', (evt) => {
-    if (evt.key === 'Enter') {
-      resolve()
-    }
-  })
-})
 
 const lecture_questionRéponse = async (
   flashCardName: string,
   selectLang: HTMLSelectElement
 ) => {
-
   const flashCard = await my_db.getFromIndex(
     'flash-cards',
     'name',
@@ -44,12 +52,15 @@ const lecture_questionRéponse = async (
 
   const questionsRéponses = flashCard.questionsRéponses
 
-  const lang = selectLang.selectedOptions[0].getAttribute("data-name")
+  const lang = selectLang.selectedOptions[0].getAttribute('data-name')
+
   for (let index = 0; index < questionsRéponses.length; index++) {
-    const questionRéponse = questionsRéponses[index];
+    const questionRéponse = questionsRéponses[index]
     for (const key in questionRéponse) {
-      if (!modeLectureCards()) { break }
-      
+      if (!modeLectureCards()) {
+        break
+      }
+
       const questionOuRéponse = questionRéponse[key]
       setquestionOuRéponseEnCours(questionOuRéponse)
       if (lang) {
@@ -58,11 +69,12 @@ const lecture_questionRéponse = async (
       await attendToucheEntrée()
     }
   }
-
-  setModeLectureCards(false)
-  setquestionOuRéponseEnCours('')
+  stopLecture()
 }
 
+interface LectureProps extends ComponentProps<any> {
+  flashCardName: string
+}
 
 const Lecture: Component<LectureProps> = (props: LectureProps) => {
   let selectLang: HTMLSelectElement | undefined
@@ -72,22 +84,25 @@ const Lecture: Component<LectureProps> = (props: LectureProps) => {
   return (
     <>
       <label
-        class='fixed h-20 w-20 bottom-32 bg-sky-500 modal-button -smh:hidden cursor-pointer'
+        class='fixed h-16 w-16 bottom-32 bg-sky-500 modal-button -smh:hidden cursor-pointer'
         style='border-radius: 50%; right: 10%'
         for='menu-modal'
       >
         <input type='checkbox' class='modal-toggle' id='menu-modal' />
         <div class='modal modal-middle'>
           <div class='modal-box'>
-            <h3 class='font-bold text-lg'>Ajouter une nouvelle flash-card :</h3>
-            <select ref={selectLang} class='select select-bordered select-primary w-4/5 mt-4'>
+            <h3 class='font-bold text-lg'>Choisir votre voix :</h3>
+            <select
+              ref={selectLang}
+              class='select select-bordered select-primary w-4/5 mt-4'
+            >
               <For each={frenchVoicesStore}>
                 {frenchVoice => (
                   <option
                     data-lang={frenchVoice.lang}
                     data-name={frenchVoice.name}
                   >
-                    {frenchVoice.name} langue: {frenchVoice.lang}
+                    {frenchVoice.name} LANGUE : {frenchVoice.lang}
                   </option>
                 )}
               </For>
@@ -103,7 +118,7 @@ const Lecture: Component<LectureProps> = (props: LectureProps) => {
                   }
                 }}
               >
-                Ajouter
+                Choisir
               </label>
             </div>
           </div>

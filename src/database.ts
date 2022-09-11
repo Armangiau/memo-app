@@ -8,10 +8,10 @@ export const open_my_DB = async () => {
         // The 'id' property of the object will be the key.
         keyPath: 'id',
         // If it isn't explicitly set, create a value by auto incrementing.
-        autoIncrement: true,
-      });
+        autoIncrement: true
+      })
       // Créez un index sur la propriété 'date' des objets.
-      store.createIndex('name', 'name');
+      store.createIndex('name', 'name')
     }
   })
 }
@@ -29,15 +29,57 @@ export const mise_à_jour_flashCard = async (
     for await (const cursor of index.iterate(flashCardName)) {
       let questRép = { ...cursor.value }
 
-      //questRép.questionsRéponses[insex].question = newVal
       questRép = modifyQuestionsRéponses(questRép)
 
-      console.log('questRép : ', questRép)
       cursor.update(questRép)
     }
-
     await tx.done
   } catch (err) {
     console.log('error : ', err)
   }
+}
+
+export const addFlashCardInDB = async (
+  flashCardName: string,
+  withDeletion = false,
+  questionsRéponses = [
+    {
+      question: '',
+      reponse: ''
+    }
+  ]
+): Promise<boolean> => {
+  const sameNameCard = await my_db.getFromIndex(
+    'flash-cards',
+    'name',
+    flashCardName
+  )
+  let isAdded = true
+
+  if (sameNameCard != undefined) {
+    isAdded = false
+    if (withDeletion) {
+      const sameNameCardKey = await my_db.getKeyFromIndex(
+        'flash-cards',
+        'name',
+        flashCardName
+      )
+      sameNameCardKey ? my_db.delete('flash-cards', sameNameCardKey) : isAdded
+    } else {
+      return isAdded
+    }
+  }
+
+  await my_db
+    .add('flash-cards', {
+      name: flashCardName,
+      questionsRéponses: questionsRéponses
+    })
+    .catch(err =>
+      console.error(
+        `erreur lors de l'ajout de la flash card ${flashCardName} contenant ${questionsRéponses} : `,
+        err
+      )
+    )
+  return isAdded
 }
