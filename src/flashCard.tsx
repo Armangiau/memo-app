@@ -68,6 +68,7 @@ const flashCard: Component = () => {
 
   return (
     <>
+      <h1 class='text-center text-4xl m-5'>{flashCardName}</h1>
       <div class='m-5 text-center'>
         <For each={questionsRéponses}>
           {(questionRéponse, index) => {

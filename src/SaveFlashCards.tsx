@@ -18,7 +18,11 @@ const nouvelleSauvegarde = async () => {
     [textToDownload],
     `sauvegarde des flash cards, du ${deuxChiffres(
       date.getDate()
-    )}-${deuxChiffres(date.getMonth() + 1)}-${date.getFullYear()}.json`,
+    )}-${deuxChiffres(
+      date.getMonth() + 1
+    )}-${date.getFullYear()} à ${deuxChiffres(date.getHours())}h${deuxChiffres(
+      date.getMinutes()
+    )}min${deuxChiffres(date.getSeconds())}sec.json`,
     { type: 'application/json;charset=utf-8' }
   )
   saveAs(JSONfile)
@@ -28,7 +32,7 @@ const nouvelleSauvegarde = async () => {
 const ajouterSauvegardeDB = async (sauvegardeJSON: string) => {
   const JSONparsed = JSON.parse(sauvegardeJSON)
   JSONparsed.forEach((FlashCard: any) => {
-    console.log(FlashCard);
+    console.log(FlashCard)
     addFlashCardInDB(FlashCard.name, false, FlashCard.questionsRéponses)
   })
   location.reload()
@@ -62,9 +66,7 @@ const SaveFlashCards: Component = () => {
       style='right: calc(10% - 2rem)'
     >
       <label
-        class='relative bg-sky-500 h-8 w-8 cursor-pointer top-0 block flex-center'
-        style='border-radius: 50%'
-      >
+        class='relative rond-sky-500 h-8 w-8 cursor-pointer top-0 block flex-center'      >
         <input
           type='file'
           accept='.json,application/json'
@@ -78,8 +80,7 @@ const SaveFlashCards: Component = () => {
       </label>
 
       <button
-        class='relative bg-sky-500 h-8 w-8 top-8 flex-center'
-        style='border-radius: 50%;'
+        class='relative rond-sky-500 h-8 w-8 top-8 flex-center'
         onClick={nouvelleSauvegarde}
       >
         <svg fill='currentColor' class='h-6' viewBox='0 0 16 16'>

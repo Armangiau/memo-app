@@ -84,8 +84,8 @@ const Lecture: Component<LectureProps> = (props: LectureProps) => {
   return (
     <>
       <label
-        class='fixed h-16 w-16 bottom-32 bg-sky-500 modal-button -smh:hidden cursor-pointer'
-        style='border-radius: 50%; right: 10%'
+        class='fixed h-16 w-16 bottom-32 rond-sky-500 modal-button -smh:hidden cursor-pointer'
+        style='right: 10%'
         for='menu-modal'
       >
         <input type='checkbox' class='modal-toggle' id='menu-modal' />
