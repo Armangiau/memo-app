@@ -5,18 +5,19 @@ import { my_db, addFlashCardInDB } from './database'
 import { Link } from '@solidjs/router'
 import SaveFlashCards from './SaveFlashCards'
 import PlusSVGlg from './plusSVGlg'
+import { DeleteMenuItem } from "./deleteItem";
 
 const DBMenuCards = await my_db.getAll('flash-cards')
 
-const [flashCards, setFlashCards] = createStore(DBMenuCards.reverse())
+export const [flashCards, setFlashCards] = createStore(DBMenuCards.map(card => card.name).reverse())
 
 const addFlashCard = async (newTitle: string) => {
   if (await addFlashCardInDB(newTitle))
-  setFlashCards(
-    produce(flashCards => {
-      flashCards.unshift({ name: newTitle })
-    })
-  )
+    setFlashCards(
+      produce(flashCards => {
+        flashCards.unshift(newTitle)
+      })
+    )
 }
 
 const Menu: Component = () => {
@@ -29,13 +30,18 @@ const Menu: Component = () => {
         style='grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr))'
       >
         <For each={flashCards}>
-          {flashCard => (
-            <Link
-              href={`/flashCard/${flashCard.name}`}
-              class='h-32 hover:bg-sky-50 text-gray-700 p-5 rounded-2xl border-sky-300 border-2 font-bold text-lg active:focus:scale-95 flex-center'
-            >
-              {flashCard.name}
-            </Link>
+          {flashCardName => (
+            <div>
+              <Link
+                href={`/flashCard/${flashCardName}`}
+                class='h-32 hover:bg-sky-50 text-gray-700 p-5 rounded-2xl border-sky-300 border-2 font-bold text-lg active:focus:scale-95 flex-center'
+              >
+                {flashCardName}
+              </Link>
+              <div class='relative -top-28 -right-24'>
+                  <DeleteMenuItem flashCardToDelete={flashCardName}/>
+              </div>
+            </div>
           )}
         </For>
       </div>
@@ -67,7 +73,7 @@ const Menu: Component = () => {
                   }
                 }}
               >
-                Ajouter
+                <button>Ajouter</button>
               </label>
             </div>
           </div>

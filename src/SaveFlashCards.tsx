@@ -62,7 +62,7 @@ const lireSauvegarde = (evt: Event) => {
 const SaveFlashCards: Component = () => {
   return (
     <span
-      class='absolute text-white h-20 w-8 bottom-32 -z-10'
+      class='fixed text-white h-20 w-8 bottom-32 -z-10'
       style='right: calc(10% - 2rem)'
     >
       <label

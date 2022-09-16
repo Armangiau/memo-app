@@ -3,10 +3,11 @@ import { createStore, produce } from 'solid-js/store'
 import { useParams } from '@solidjs/router'
 import { my_db, mise_à_jour_flashCard } from './database'
 import PlusSVGlg from './plusSVGlg'
+import { DeleteFlashCardBlock } from './deleteItem'
 
 const Lecture = lazy(() => import('./Lecture'))
 
-const [questionsRéponses, setQuestionsRéponses] = createStore([
+export const [questionsRéponses, setQuestionsRéponses] = createStore([
   {
     question: '',
     réponse: ''
@@ -27,7 +28,7 @@ const mise_à_jour_qest = (
   newVal: string,
   flashCardName: string
 ) =>
-  mise_à_jour_flashCard(flashCardName, (questRép: any) => {
+  mise_à_jour_flashCard(flashCardName, questRép => {
     questRép.questionsRéponses[insex].question = newVal
     return questRép
   })
@@ -37,13 +38,13 @@ const mise_à_jour_rép = (
   newVal: string,
   flashCardName: string
 ) =>
-  mise_à_jour_flashCard(flashCardName, (questRép: any) => {
+  mise_à_jour_flashCard(flashCardName, questRép => {
     questRép.questionsRéponses[insex].réponse = newVal
     return questRép
   })
 
 const nouvelles_questionRéponse = (flashCardName: string) => {
-  mise_à_jour_flashCard(flashCardName, (questRép: any) => {
+  mise_à_jour_flashCard(flashCardName, questRép => {
     questRép.questionsRéponses.push({
       question: '',
       réponse: ''
@@ -52,8 +53,8 @@ const nouvelles_questionRéponse = (flashCardName: string) => {
   })
 
   setQuestionsRéponses(
-    produce(flashCards => {
-      flashCards.push({
+    produce(flashCard => {
+      flashCard.push({
         question: '',
         réponse: ''
       })
@@ -88,6 +89,12 @@ const flashCard: Component = () => {
                     )
                   }}
                 />
+                <span class='ml-2 inline-block'>
+                  <DeleteFlashCardBlock
+                    flashCard={flashCardName}
+                    indexItemToDelete={index()}
+                  />
+                </span>
                 <br />
                 <textarea
                   class='textarea textarea-secondary w-full sm:w-4/5 max-w-4xl mb-4 ml-2 sm:ml-20'

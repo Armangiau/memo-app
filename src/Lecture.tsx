@@ -6,7 +6,6 @@ import {
   For,
   createEffect
 } from 'solid-js'
-import { createStore } from 'solid-js/store'
 import { frenchVoices, speak, synth } from './speechSynethsis'
 import { my_db } from './database'
 
@@ -79,8 +78,6 @@ interface LectureProps extends ComponentProps<any> {
 const Lecture: Component<LectureProps> = (props: LectureProps) => {
   let selectLang: HTMLSelectElement | undefined
 
-  const [frenchVoicesStore, setFrenchVoicesStore] = createStore(frenchVoices)
-
   return (
     <>
       <label
@@ -96,7 +93,7 @@ const Lecture: Component<LectureProps> = (props: LectureProps) => {
               ref={selectLang}
               class='select select-bordered select-primary w-4/5 mt-4'
             >
-              <For each={frenchVoicesStore}>
+              <For each={frenchVoices}>
                 {frenchVoice => (
                   <option
                     data-lang={frenchVoice.lang}

@@ -20,7 +20,7 @@ export const my_db = await open_my_DB()
 
 export const mise_à_jour_flashCard = async (
   flashCardName: string,
-  modifyQuestionsRéponses: BlobCallback
+  modifyQuestionsRéponses: (questRép: any) => any
 ) => {
   try {
     const tx = my_db.transaction('flash-cards', 'readwrite')
@@ -82,4 +82,11 @@ export const addFlashCardInDB = async (
       )
     )
   return isAdded
+}
+
+export const deleteFlashCardInDB = async (flashCardToDelete: string) => {
+  const key = await my_db.getKeyFromIndex('flash-cards', 'name', flashCardToDelete)
+  if (key) {
+    await my_db.delete('flash-cards', key)
+  }
 }

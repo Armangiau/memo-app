@@ -9,6 +9,7 @@ const awaitVoices = () =>
       }
     }
     synth.addEventListener('voiceschanged', voiceschanged)
+    voiceschanged()
   })
 
 const voices = await awaitVoices()
@@ -21,7 +22,7 @@ export const frenchVoices = voices.filter(
 
 export const speak = (text: string, nameChosenVoice: string) => {
   if (synth.speaking) {
-    console.error('speechSynthesis.speaking')
+    console.log('speechSynthesis.speaking')
     synth.cancel()
   }
 
