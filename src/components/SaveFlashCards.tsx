@@ -1,5 +1,5 @@
 import { Component } from 'solid-js'
-import { my_db, addFlashCardInDB } from './database'
+import { my_db, addFlashCardInDB } from '../web_api/database'
 import { saveAs } from 'file-saver'
 
 const nouvelleSauvegarde = async () => {

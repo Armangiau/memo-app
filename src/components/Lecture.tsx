@@ -6,8 +6,8 @@ import {
   For,
   createEffect
 } from 'solid-js'
-import { frenchVoices, speak, synth } from './speechSynethsis'
-import { my_db } from './database'
+import { frenchVoices, speak, synth } from '../web_api/speechSynethsis'
+import { my_db } from '../web_api/database'
 
 const [modeLectureCards, setModeLectureCards] = createSignal(false)
 const [questionOuRéponseEnCours, setquestionOuRéponseEnCours] = createSignal('')

@@ -1,11 +1,11 @@
 import { Component } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import { For } from 'solid-js/web'
-import { my_db, addFlashCardInDB } from './database'
+import { my_db, addFlashCardInDB } from '../web_api/database'
 import { Link } from '@solidjs/router'
-import SaveFlashCards from './SaveFlashCards'
-import PlusSVGlg from './plusSVGlg'
-import { DeleteMenuItem } from "./deleteItem";
+import SaveFlashCards from '../components/SaveFlashCards'
+import PlusSVGlg from '../components/plusSVGlg'
+import { DeleteMenuItem } from "../components/deleteItem";
 
 const DBMenuCards = await my_db.getAll('flash-cards')
 

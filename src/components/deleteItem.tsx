@@ -1,6 +1,6 @@
 import { Component, ComponentProps } from 'solid-js'
-import { mise_à_jour_flashCard, deleteFlashCardInDB } from './database'
-import { createStore, produce } from 'solid-js/store'
+import { mise_à_jour_flashCard, deleteFlashCardInDB } from '../web_api/database'
+import { produce } from 'solid-js/store'
 import PlusSVGlg from './plusSVGlg'
 
 interface deleteMenuProps extends ComponentProps<any> {
@@ -19,7 +19,7 @@ const DeleteItem: Component<deleteMenuProps> = (props: deleteMenuProps) => {
 }
 
 const updateMenu = async (flashCardToDelete: string) => {
-  const menu = await import('./Menu')
+  const menu = await import('../pages/Menu')
   const [flashCards, setFlashCards] = [menu.flashCards, menu.setFlashCards]
   const indexFlashCardToDelete = flashCards.indexOf(flashCardToDelete)
   setFlashCards(
@@ -59,7 +59,7 @@ const deleteBlockInFlashCard = (
 }
 
 const updateFlashCard = async (indexItemToDelete: number) => {
-  const flashCard = await import('./flashCard')
+  const flashCard = await import('../pages/flashCard')
   const setQuestionsRéponses = flashCard.setQuestionsRéponses
   setQuestionsRéponses(
     produce(flashCard => {

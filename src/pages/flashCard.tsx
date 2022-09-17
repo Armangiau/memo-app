@@ -1,11 +1,11 @@
 import { Component, For, lazy } from 'solid-js'
 import { createStore, produce } from 'solid-js/store'
 import { useParams } from '@solidjs/router'
-import { my_db, mise_à_jour_flashCard } from './database'
-import PlusSVGlg from './plusSVGlg'
+import { my_db, mise_à_jour_flashCard } from '../web_api/database'
+import PlusSVGlg from '../components/plusSVGlg'
 import { DeleteFlashCardBlock } from './deleteItem'
 
-const Lecture = lazy(() => import('./Lecture'))
+const Lecture = lazy(() => import('../components/Lecture'))
 
 export const [questionsRéponses, setQuestionsRéponses] = createStore([
   {
@@ -114,14 +114,13 @@ const flashCard: Component = () => {
             )
           }}
         </For>
-        <div
+        <button
           class='h-14 w-14 bottom-20 right-10 bg-gray-100 modal-button mx-auto text-gray-600'
           style='border-radius: 50%'
-          tabIndex='1'
           onClick={() => nouvelles_questionRéponse(flashCardName)}
         >
           <PlusSVGlg />
-        </div>
+        </button>
         <div class='h-96 w-sreen'></div>
       </div>
       <Lecture flashCardName={flashCardName} />
