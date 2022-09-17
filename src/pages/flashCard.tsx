@@ -3,7 +3,7 @@ import { createStore, produce } from 'solid-js/store'
 import { useParams } from '@solidjs/router'
 import { my_db, mise_à_jour_flashCard } from '../web_api/database'
 import PlusSVGlg from '../components/plusSVGlg'
-import { DeleteFlashCardBlock } from './deleteItem'
+import { DeleteFlashCardBlock } from '../components/deleteItem'
 
 const Lecture = lazy(() => import('../components/Lecture'))
 
@@ -20,7 +20,9 @@ const rechercheQuestionsRéponses = async (flashCardName: string) => {
     'name',
     flashCardName
   )
-  setQuestionsRéponses(flashCard.questionsRéponses)
+  if (flashCard) {
+    setQuestionsRéponses(flashCard.questionsRéponses)
+  }
 }
 
 const mise_à_jour_qest = (

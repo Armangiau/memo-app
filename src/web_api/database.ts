@@ -1,16 +1,32 @@
-import { openDB } from 'idb/with-async-ittr'
+import { openDB, DBSchema } from 'idb/with-async-ittr'
+
+interface DBValues {
+  name: string
+  questionsRéponses: {
+    question: string
+    réponse: string
+  }[]
+}
+
+interface MyFlashCardsDB extends DBSchema {
+  'flash-cards': {
+    value: DBValues
+    key: number
+    indexes: { name: string }
+  }
+}
 
 export const open_my_DB = async () => {
-  return await openDB('flash-cards', 1, {
+  return await openDB<MyFlashCardsDB>('flash-cards', 1, {
     upgrade (db) {
       // Create a store of objects
       const store = db.createObjectStore('flash-cards', {
-        // The 'id' property of the object will be the key.
+        // La propriétée 'id' de l'objet va être la clef.
         keyPath: 'id',
-        // If it isn't explicitly set, create a value by auto incrementing.
+        // Si ce n'est pas explisite ajouter, création d'une valeur par incrémentation.
         autoIncrement: true
       })
-      // Créez un index sur la propriété 'date' des objets.
+      // Créez un index sur la propriété 'name' des objets.
       store.createIndex('name', 'name')
     }
   })
@@ -20,7 +36,7 @@ export const my_db = await open_my_DB()
 
 export const mise_à_jour_flashCard = async (
   flashCardName: string,
-  modifyQuestionsRéponses: (questRép: any) => any
+  modifyQuestionsRéponses: (questRép: DBValues) => DBValues
 ) => {
   try {
     const tx = my_db.transaction('flash-cards', 'readwrite')
@@ -54,6 +70,7 @@ export const addFlashCardInDB = async (
     'name',
     flashCardName
   )
+
   let isAdded = true
 
   if (sameNameCard != undefined) {
@@ -85,7 +102,11 @@ export const addFlashCardInDB = async (
 }
 
 export const deleteFlashCardInDB = async (flashCardToDelete: string) => {
-  const key = await my_db.getKeyFromIndex('flash-cards', 'name', flashCardToDelete)
+  const key = await my_db.getKeyFromIndex(
+    'flash-cards',
+    'name',
+    flashCardToDelete
+  )
   if (key) {
     await my_db.delete('flash-cards', key)
   }
