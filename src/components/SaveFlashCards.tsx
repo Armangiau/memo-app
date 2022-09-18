@@ -1,6 +1,7 @@
 import { Component } from 'solid-js'
 import { my_db, addFlashCardInDB } from '../web_api/database'
 import { saveAs } from 'file-saver'
+import { DBValues } from "../web_api/database";
 
 const nouvelleSauvegarde = async () => {
   const FlashCards = await my_db.getAll('flash-cards')
@@ -30,8 +31,8 @@ const nouvelleSauvegarde = async () => {
 }
 
 const ajouterSauvegardeDB = async (sauvegardeJSON: string) => {
-  const JSONparsed = JSON.parse(sauvegardeJSON)
-  JSONparsed.forEach((FlashCard: any) => {
+  const JSONparsed = JSON.parse(sauvegardeJSON) as DBValues[]
+  JSONparsed.forEach((FlashCard) => {
     console.log(FlashCard)
     addFlashCardInDB(FlashCard.name, false, FlashCard.questionsRéponses)
   })

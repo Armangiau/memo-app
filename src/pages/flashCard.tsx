@@ -4,6 +4,7 @@ import { useParams } from '@solidjs/router'
 import { my_db, mise_à_jour_flashCard } from '../web_api/database'
 import PlusSVGlg from '../components/plusSVGlg'
 import { DeleteFlashCardBlock } from '../components/deleteItem'
+import { ErrorDB } from "../defaultToast"
 
 const Lecture = lazy(() => import('../components/Lecture'))
 
@@ -22,6 +23,8 @@ const rechercheQuestionsRéponses = async (flashCardName: string) => {
   )
   if (flashCard) {
     setQuestionsRéponses(flashCard.questionsRéponses)
+  } else {
+    ErrorDB()
   }
 }
 

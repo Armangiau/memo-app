@@ -1,6 +1,7 @@
 import { openDB, DBSchema } from 'idb/with-async-ittr'
+import { ErrorDB } from "../defaultToast";
 
-interface DBValues {
+export type DBValues = {
   name: string
   questionsRéponses: {
     question: string
@@ -51,7 +52,7 @@ export const mise_à_jour_flashCard = async (
     }
     await tx.done
   } catch (err) {
-    console.log('error : ', err)
+    ErrorDB(err)
   }
 }
 
@@ -93,10 +94,7 @@ export const addFlashCardInDB = async (
       questionsRéponses: questionsRéponses
     })
     .catch(err =>
-      console.error(
-        `erreur lors de l'ajout de la flash card ${flashCardName} contenant ${questionsRéponses} : `,
-        err
-      )
+      ErrorDB(`erreur lors de l'ajout de la flash card ${flashCardName} contenant ${questionsRéponses} : ${err}`)
     )
   return isAdded
 }

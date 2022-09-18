@@ -8,6 +8,7 @@ import {
 } from 'solid-js'
 import { frenchVoices, speak, synth } from '../web_api/speechSynethsis'
 import { my_db } from '../web_api/database'
+import { ErrorDB } from "../defaultToast"
 
 const [modeLectureCards, setModeLectureCards] = createSignal(false)
 const [questionOuRéponseEnCours, setquestionOuRéponseEnCours] = createSignal('')
@@ -48,27 +49,26 @@ const lecture_questionRéponse = async (
     'name',
     flashCardName
   )
-
-  const questionsRéponses = flashCard.questionsRéponses
-
-  const lang = selectLang.selectedOptions[0].getAttribute('data-name')
-
-  for (let index = 0; index < questionsRéponses.length; index++) {
-    const questionRéponse = questionsRéponses[index]
-    for (const key in questionRéponse) {
-      if (!modeLectureCards()) {
-        break
+  if (flashCard) {
+    const questionsRéponses = flashCard.questionsRéponses
+    const lang = selectLang.selectedOptions[0].getAttribute('data-name')
+    for (const questionRéponse of questionsRéponses) {
+      for (const key in questionRéponse) {
+        if (!modeLectureCards()) {
+          break
+        }
+        const questionOuRéponse = questionRéponse[key as keyof typeof questionRéponse]
+        setquestionOuRéponseEnCours(questionOuRéponse)
+        if (lang) {
+          speak(questionOuRéponse, lang)
+        }
+        await attendToucheEntrée()
       }
-
-      const questionOuRéponse = questionRéponse[key]
-      setquestionOuRéponseEnCours(questionOuRéponse)
-      if (lang) {
-        speak(questionOuRéponse, lang)
-      }
-      await attendToucheEntrée()
     }
+    stopLecture()
+  } else {
+    ErrorDB()
   }
-  stopLecture()
 }
 
 interface LectureProps extends ComponentProps<any> {
