@@ -5,11 +5,14 @@ import { my_db, addFlashCardInDB } from '../web_api/database'
 import { Link } from '@solidjs/router'
 import SaveFlashCards from '../components/SaveFlashCards'
 import PlusSVGlg from '../components/plusSVGlg'
-import { DeleteMenuItem } from "../components/deleteItem";
+import { DeleteMenuItem } from '../components/deleteItem'
+import Modale, { openModal } from '../components/Modale'
 
 const DBMenuCards = await my_db.getAll('flash-cards')
 
-export const [flashCards, setFlashCards] = createStore(DBMenuCards.map(card => card.name).reverse())
+export const [flashCards, setFlashCards] = createStore(
+  DBMenuCards.map(card => card.name).reverse()
+)
 
 const addFlashCard = async (newTitle: string) => {
   if (await addFlashCardInDB(newTitle))
@@ -39,49 +42,40 @@ const Menu: Component = () => {
                 {flashCardName}
               </Link>
               <div class='relative -top-28 -right-24'>
-                  <DeleteMenuItem flashCardToDelete={flashCardName}/>
+                <DeleteMenuItem flashCardToDelete={flashCardName} />
               </div>
             </div>
           )}
         </For>
       </div>
 
-      <label
-        class='fixed h-16 w-16 bottom-32 rond-sky-500 modal-button'
-        style='right: 10%'
-        for='menu-modal'
+      <Modale
+        onSubmitModal={() => {
+          if (userTitle) {
+            if (!userTitle.value.trim()) return
+            addFlashCard(userTitle.value)
+            userTitle.value = ''
+          }
+        }}
+        submitNameButton = 'Ajouter'
       >
-        <input type='checkbox' class='modal-toggle' id='menu-modal' />
+        <>
+          <h3 class='font-bold text-lg'>Ajouter une nouvelle flash-card :</h3>
+          <input
+            type='text'
+            class='input input-bordered input-primary w-full my-4'
+            ref={userTitle}
+          />
+        </>
+      </Modale>
 
-        <div class='modal modal-bottom md:modal-middle'>
-          <div class='modal-box '>
-            <h3 class='font-bold text-lg'>Ajouter une nouvelle flash-card :</h3>
-            <input
-              type='text'
-              class='input input-bordered input-primary w-full my-4'
-              ref={userTitle}
-            />
-            <div class='modal-action'>
-              <label
-                for='menu-modal'
-                class='btn btn-secondary'
-                onClick={() => {
-                  if (userTitle) {
-                    if (!userTitle.value.trim()) return
-                    addFlashCard(userTitle.value)
-                    userTitle.value = ''
-                  }
-                }}
-              >
-                <button>Ajouter</button>
-              </label>
-            </div>
-          </div>
-        </div>
-        <span class='text-white'>
-          <PlusSVGlg />
-        </span>
-      </label>
+      <button
+        class='fixed h-16 w-16 bottom-32 rond-sky-500 modal-button text-white'
+        style='right: 10%'
+        onClick={openModal}
+      >
+        <PlusSVGlg />
+      </button>
       <SaveFlashCards />
     </>
   )

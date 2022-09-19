@@ -4,7 +4,7 @@ import { useParams } from '@solidjs/router'
 import { my_db, mise_à_jour_flashCard } from '../web_api/database'
 import PlusSVGlg from '../components/plusSVGlg'
 import { DeleteFlashCardBlock } from '../components/deleteItem'
-import { ErrorDB } from "../defaultToast"
+import { ErrorDB } from '../defaultToast'
 
 const Lecture = lazy(() => import('../components/Lecture'))
 
@@ -75,15 +75,15 @@ const flashCard: Component = () => {
   return (
     <>
       <h1 class='text-center text-4xl m-5'>{flashCardName}</h1>
-      <div class='m-5 text-center'>
+      <div class='my-5 mx-auto text-center max-w-4xl flex flex-col px-3'>
         <For each={questionsRéponses}>
           {(questionRéponse, index) => {
             const { question, réponse } = questionRéponse
             return (
-              <>
+              <div>
                 <input
                   type='text'
-                  class='input input-bordered input-primary w-full sm:w-4/5 max-w-4xl mb-4 '
+                  class='input input-bordered input-primary w-full sm:w-4/5 mb-4 '
                   placeholder='question'
                   value={question}
                   onChange={evt => {
@@ -94,15 +94,19 @@ const flashCard: Component = () => {
                     )
                   }}
                 />
-                <span class='ml-2 inline-block'>
+                <div
+                  class='relative -top-12 z-50'
+                  style={{
+                    left: '93%'
+                  }}
+                >
                   <DeleteFlashCardBlock
                     flashCard={flashCardName}
                     indexItemToDelete={index()}
                   />
-                </span>
-                <br />
+                </div>
                 <textarea
-                  class='textarea textarea-secondary w-full sm:w-4/5 max-w-4xl mb-4 ml-2 sm:ml-20'
+                  class='textarea textarea-secondary w-full sm:w-4/5 mb-4 ml-2 sm:ml-20'
                   placeholder='réponse'
                   onChange={evt => {
                     mise_à_jour_rép(
@@ -115,7 +119,7 @@ const flashCard: Component = () => {
                   {réponse}
                 </textarea>
                 <br />
-              </>
+              </div>
             )
           }}
         </For>
