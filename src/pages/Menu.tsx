@@ -37,9 +37,9 @@ const Menu: Component = () => {
             <div>
               <Link
                 href={`/flashCard/${flashCardName}`}
-                class='h-32 hover:bg-sky-50 text-gray-700 p-5 rounded-2xl border-sky-300 border-2 font-bold text-lg active:focus:scale-95 flex-center'
+                class='h-32 w-32 hover:bg-sky-50 text-gray-700 p-5 rounded-2xl border-sky-300 border-2 font-bold text-lg active:focus:scale-95 flex-center'
               >
-                {flashCardName}
+                {flashCardName.length < 36 ? flashCardName : flashCardName.slice(0, 36 - 3) + '...'}
               </Link>
               <div class='relative -top-28 -right-24'>
                 <DeleteMenuItem flashCardToDelete={flashCardName} />

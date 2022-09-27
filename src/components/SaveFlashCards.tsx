@@ -63,8 +63,7 @@ const lireSauvegarde = (evt: Event) => {
 const SaveFlashCards: Component = () => {
   return (
     <span
-      class='fixed text-white h-20 w-8 bottom-32 -z-10'
-      style='right: calc(10% - 2rem)'
+      class='save-flash-card'
     >
       <label
         for='file-input'

@@ -4,7 +4,7 @@ import { Router } from '@solidjs/router'
 
 import './style/fonts.css'
 import './style/tailwind.css'
-import './style/oftenUseClasses.css'
+import './style/index.css'
 
 import App from './App'
 

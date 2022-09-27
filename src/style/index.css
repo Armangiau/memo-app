@@ -9,3 +9,14 @@
   background-color: rgb(14 165 233 / var(--tw-bg-opacity));
   border-radius: 50%;
 }
+
+.save-flash-card {
+  @apply fixed text-white h-20 w-8 bottom-32 -z-10;
+  right: calc(10% + 4.5rem);
+}
+
+@media (min-width: 768px) {
+  .save-flash-card {
+    right: calc(10% - 2rem);
+  }
+}
