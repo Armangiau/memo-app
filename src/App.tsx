@@ -1,9 +1,9 @@
 import { Component, lazy } from 'solid-js'
 import { Routes, Route, Link } from '@solidjs/router'
 
-const Menu = lazy(() => import('./pages/Menu'))
+const Menu = lazy(() => import('./menu/Menu'))
 
-const flashCard = lazy(() => import('./pages/flashCard'))
+const flashCard = lazy(() => import('./flash-card/flashCard'))
 
 const App: Component = () => {
   return (

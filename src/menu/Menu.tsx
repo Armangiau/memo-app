@@ -3,25 +3,15 @@ import { createStore, produce } from 'solid-js/store'
 import { For } from 'solid-js/web'
 import { my_db, addFlashCardInDB } from '../web_api/database'
 import { Link } from '@solidjs/router'
-import SaveFlashCards from '../components/SaveFlashCards'
-import PlusSVGlg from '../components/plusSVGlg'
-import { DeleteMenuItem } from '../components/deleteItem'
-import Modale, { openModal } from '../components/Modale'
+import SaveFlashCards from './components/SaveFlashCards'
+import PlusSVGlg from '../ui/plusSVGlg'
+import DeleteCard from './components/deleteCard'
+import Modale, { openModal } from '../ui/Modale'
+import menuStore from './menuStore'
 
-const DBMenuCards = await my_db.getAll('flash-cards')
+const store = menuStore
+const flashCards = store.passStore()
 
-export const [flashCards, setFlashCards] = createStore(
-  DBMenuCards.map(card => card.name).reverse()
-)
-
-const addFlashCard = async (newTitle: string) => {
-  if (await addFlashCardInDB(newTitle))
-    setFlashCards(
-      produce(flashCards => {
-        flashCards.unshift(newTitle)
-      })
-    )
-}
 
 const Menu: Component = () => {
   let userTitle: HTMLInputElement | undefined
@@ -42,7 +32,7 @@ const Menu: Component = () => {
                 {flashCardName.length < 36 ? flashCardName : flashCardName.slice(0, 36 - 3) + '...'}
               </Link>
               <div class='relative -top-28 -right-24'>
-                <DeleteMenuItem flashCardToDelete={flashCardName} />
+                <DeleteCard flashCardToDelete={flashCardName} />
               </div>
             </div>
           )}
@@ -50,10 +40,10 @@ const Menu: Component = () => {
       </div>
 
       <Modale
-        onSubmitModal={() => {
+        onSubmitModal={async () => {
           if (userTitle) {
             if (!userTitle.value.trim()) return
-            addFlashCard(userTitle.value)
+            await store.addFlashCard(userTitle.value)
             userTitle.value = ''
           }
         }}

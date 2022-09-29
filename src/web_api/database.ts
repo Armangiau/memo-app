@@ -17,7 +17,7 @@ interface MyFlashCardsDB extends DBSchema {
   }
 }
 
-export const open_my_DB = async () => {
+const open_my_DB = async () => {
   return await openDB<MyFlashCardsDB>('flash-cards', 1, {
     upgrade (db) {
       // Create a store of objects
