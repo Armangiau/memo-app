@@ -2,9 +2,11 @@
 import { render } from 'solid-js/web'
 import { Router } from '@solidjs/router'
 
-import './style/fonts.css'
-import './style/tailwind.css'
-import './style/index.css'
+import './ui/styles/fonts.css'
+import './ui/styles/var.css'
+import './ui/styles/tailwind.css'
+import './ui/styles/index.css'
+import './ui/styles/global.css'
 
 import App from './App'
 

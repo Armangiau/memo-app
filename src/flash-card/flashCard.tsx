@@ -1,22 +1,17 @@
 import { Component, For, lazy } from 'solid-js'
-import { createStore, produce } from 'solid-js/store'
 import { useParams } from '@solidjs/router'
-import { my_db, mise_à_jour_flashCard } from '../web_api/database'
-import PlusSVGlg from '../ui/plusSVGlg'
+import PlusSVGlg from '../ui/svg/plusSVGlg'
 import DeleteQestRep from './components/deleteQestRep'
 import flashCardStore from './flashCardStore'
-import { ErrorDB } from '../defaultToast'
 
 const Lecture = lazy(() => import('./components/Lecture'))
 
-const questionsRéponses = flashCardStore.passStore()
-
-
-
 const flashCard: Component = () => {
   const flashCardName = useParams().name
+  const store = new flashCardStore(flashCardName)
+  store.loadQuestionsRéponses()
 
-  flashCardStore.loadQuestionsRéponses(flashCardName)
+  const questionsRéponses = store.passStore
 
   return (
     <>
@@ -33,33 +28,19 @@ const flashCard: Component = () => {
                   placeholder='question'
                   value={question}
                   onChange={evt => {
-                    flashCardStore.mise_à_jour_qest(
-                      index(),
-                      evt.currentTarget.value,
-                      flashCardName
-                    )
+                    store.mise_à_jour_qest(index(), evt.currentTarget.value)
                   }}
                 />
-                <div
-                  class='relative -top-12 z-50'
-                  style={{
-                    left: '93%'
-                  }}
-                >
-                  <DeleteQestRep
-                    flashCard={flashCardName}
-                    indexItemToDelete={index()}
-                  />
-                </div>
+                <DeleteQestRep
+                  class='relative top-2 left-4'
+                  store={store}
+                  indexItemToDelete={index()}
+                />
                 <textarea
                   class='textarea textarea-secondary w-full sm:w-4/5 mb-4 ml-2 sm:ml-20'
                   placeholder='réponse'
                   onChange={evt => {
-                    flashCardStore.mise_à_jour_rép(
-                      index(),
-                      evt.currentTarget.value,
-                      flashCardName
-                    )
+                    store.mise_à_jour_rép(index(), evt.currentTarget.value)
                   }}
                 >
                   {réponse}
@@ -72,11 +53,12 @@ const flashCard: Component = () => {
         <button
           class='h-14 w-14 bottom-20 right-10 bg-gray-100 modal-button mx-auto text-gray-600'
           style='border-radius: 50%'
-          onClick={() => flashCardStore.nouvelles_questionRéponse(flashCardName)}
+          onClick={store.nouvelles_questionRéponse}
         >
           <PlusSVGlg />
         </button>
         <div class='h-96 w-sreen'></div>
+        {/* add an empty space under questions and responeces*/}
       </div>
       <Lecture flashCardName={flashCardName} />
     </>

@@ -1,4 +1,4 @@
-import DeleteItem from './ui/deleteItem'
+import DeleteItem from './ui/actions/deleteItem'
 import { createSignal } from 'solid-js'
 
 export const ErrorDB = (error: any = undefined) => {

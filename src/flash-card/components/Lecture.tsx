@@ -9,7 +9,8 @@ import {
 import { frenchVoices, speak, synth } from '../../web_api/speechSynethsis'
 import { my_db } from '../../web_api/database'
 import { ErrorDB } from '../../defaultToast'
-import Modale, { openModal } from '../../ui/Modale'
+import Modal from '../../ui/actions/Modal'
+import BtnCircle from '../../ui/actions/btnCircle'
 
 interface LectureProps extends ComponentProps<any> {
   flashCardName: string
@@ -79,21 +80,34 @@ const Lecture: Component<LectureProps> = (props: LectureProps) => {
       ErrorDB()
     }
   }
+  
+  const openModalBtn = 
+    <BtnCircle
+        color='action'
+        size='lg'
+        style='right: 10%'
+        class='fixed bottom-32 -smh:hidden'
+      >
+        <svg fill='currentColor' viewBox='0 0 16 16'>
+          <path d='M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z' />
+        </svg>
+    </BtnCircle>;
 
   let selectLang: HTMLSelectElement | undefined
   return (
     <>
-      <Modale
-        onSubmitModal={() => {
+      <Modal
+        title = 'Choisir votre voix :'
+        action = {openModalBtn}
+        onSubmitBtn={() => {
           setModeLectureCards(true)
           if (selectLang) {
             lecture_questionRéponse(props.flashCardName, selectLang)
           }
         }}
-        submitNameButton='Choisir'
+        mainBtnTitle='Choisir'
       >
         <>
-          <h3 class='font-bold text-lg'>Choisir votre voix :</h3>
           <select
             ref={selectLang}
             class='select select-bordered select-primary w-4/5 mt-4'
@@ -110,18 +124,7 @@ const Lecture: Component<LectureProps> = (props: LectureProps) => {
             </For>
           </select>
         </>
-      </Modale>
-
-      <button
-        class='text-white fixed h-16 w-16 bottom-32 rond-sky-500 modal-button -smh:hidden'
-        style='right: 10%'
-        onClick={openModal}
-      >
-        <svg fill='currentColor' viewBox='0 0 16 16'>
-          <path d='M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z' />
-        </svg>
-      </button>
-
+      </Modal>
       <Show when={modeLectureCards()}>
         <div class='w-screen h-screen bg-white text-2xl md:text-4xl flex justify-center items-center z-50 fixed transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2'>
           <span>{questionOuRéponseEnCours()}</span>

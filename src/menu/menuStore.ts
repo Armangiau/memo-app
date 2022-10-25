@@ -3,13 +3,13 @@ import { my_db, addFlashCardInDB, DBValues } from '../web_api/database'
 
 class methodStore {
   flashCards: string[]
-
   setFlashCards: SetStoreFunction<string[]>
+  
   constructor(cards: DBValues[]) {
     [this.flashCards, this.setFlashCards] = createStore(cards.map(card => card.name).reverse())
   }
-
-  async addFlashCard(newTitle: string) {
+  
+  addFlashCard = async (newTitle: string) => {
     if (await addFlashCardInDB(newTitle))
     this.setFlashCards(
       produce(flashCards => {
@@ -18,7 +18,7 @@ class methodStore {
     )
   }
 
-  async updateMenu (flashCardToDelete: string) {
+  updateMenu = async (flashCardToDelete: string) => {
     const indexFlashCardToDelete = this.flashCards.indexOf(flashCardToDelete)
     this.setFlashCards(
       produce(flashCards => {
@@ -27,7 +27,7 @@ class methodStore {
     )
   }
 
-  passStore() {
+  get passStore() {
     return this.flashCards
   }
 }
