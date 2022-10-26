@@ -10,6 +10,14 @@ module.exports = {
       },
       fontFamily: {
         headlight: ['Headlight', ...defaultTheme.fontFamily.sans]
+      },
+      colors: {
+        primary: '#1276CE',
+        secondary: '#A26100',
+        action: '#D50B59',
+        "primary-light": '#F2F9FF',
+        "secondary-light": '#FFF9EF',
+        "action-light": '#FFF2F7'
       }
     }
   },

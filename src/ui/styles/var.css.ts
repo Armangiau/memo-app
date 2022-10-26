@@ -3,23 +3,21 @@ import { createGlobalTheme } from '@vanilla-extract/css'
 export type colors = 'primary' | 'secondary' | 'action'
 
 export const palette = createGlobalTheme(':root', {
-  whiteBgText: {
+  dark: {
     primary: '#1276CE',
     secondary: '#A26100',
     action: '#D50B59'
   },
-  blackBgText: {
-    primary: '#90BDE5',
-    secondary: '#E4B775',
-    action: '#E68EB0'
+  light: {
+    primary: '#F2F9FF',
+    secondary: '#FFF9EF',
+    action: '#FFF2F7'
   },
   text: {
     white: 'white',
     black: 'black'
   },
-  background: {
-    white: 'white'
-  }
+  background: '#FFF9EF'
 })
 
 

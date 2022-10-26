@@ -9,7 +9,7 @@ const App: Component = () => {
   return (
     <>
       <Link href="/">
-        <header class='w-screen h-20 text-center pt-6 border-b-2 border-gray-800 text-4xl font-headlight'>
+        <header class='font-headlight' style="width: 100vw;  height: 5rem; text-align: center; padding-top: 1.5rem; border-bottom-width: 2px; font-size: 2.25rem; line-height: 2.5rem; border-color: black;">
           Audio flash-card
         </header>
       </Link>

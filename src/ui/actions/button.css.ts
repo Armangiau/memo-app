@@ -14,7 +14,7 @@ export const btn = style(
     borderRadius: '.5rem',
     fontWeight: 600,
     color: palette.text.white,
-    background: palette.whiteBgText.primary,
+    background: palette.dark.primary,
     transition: 'filter 0.15s ease-out, transform 0.15s ease-out',
     ':hover': {
       filter: 'saturate(95%) brightness(95%)'

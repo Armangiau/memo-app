@@ -36,7 +36,7 @@ export const modal = style({
   opacity: 0,
   width: '95%',
   maxWidth: '31.25rem',
-  backgroundColor: palette.background.white,
+  backgroundColor: palette.background,
   borderRadius: sizes.radius.md,
   position: 'fixed',
   top: '50%',

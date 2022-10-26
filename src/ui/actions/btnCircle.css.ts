@@ -3,7 +3,7 @@ import { palette, sizes } from '../styles/var.css'
 
 const btnCircle = style({
   color: palette.text.white,
-  background: palette.whiteBgText.primary,
+  background: palette.dark.primary,
   height: sizes.buttons.heights.sm,
   width: sizes.buttons.heights.sm,
   borderRadius: '50%',

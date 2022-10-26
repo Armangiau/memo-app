@@ -8,7 +8,7 @@ interface ButtonProps extends ComponentProps<'button'> {
 
 const Button: Component<ButtonProps> = (props: ButtonProps) => {
   const {children, color,...otherProps} = props
-  const bgcolor = color ? palette.whiteBgText[color] : undefined
+  const bgcolor = color ? palette.dark[color] : undefined
 
   return (
     <button class={btn + ' ' + otherProps.class} {...otherProps} style={{
