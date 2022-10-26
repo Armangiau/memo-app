@@ -7,6 +7,7 @@ import DeleteCard from './components/deleteCard'
 import Modal from '../ui/actions/Modal'
 import menuStore from './menuStore'
 import BtnCircle from '../ui/actions/btnCircle'
+import Input from '../ui/data_input/input'
 
 const store = menuStore
 const flashCards = store.passStore
@@ -22,10 +23,10 @@ const Menu: Component = () => {
       >
         <For each={flashCards}>
           {flashCardName => (
-            <div>
+            <div class='active:scale-95'>
               <Link
                 href={`/flashCard/${flashCardName}`}
-                class='h-32 w-32 hover:bg-primary-light text-gray-700 p-5 rounded-2xl border-primary border-2 font-bold text-lg active:focus:scale-95 flex-center'
+                class='h-32 w-32 hover:bg-primary-light text-gray-700 p-5 rounded-2xl border-primary border-2 font-bold text-lg flex-center'
               >
                 {flashCardName.length < 36
                   ? flashCardName
@@ -56,9 +57,9 @@ const Menu: Component = () => {
           }
         }}
       >
-        <input
+        <Input
           type='text'
-          class='input input-bordered input-primary w-full my-4'
+          class='w-full my-4'
           ref={userTitle}
         />
       </Modal>

@@ -1,5 +1,5 @@
 import { globalStyle } from "@vanilla-extract/css";
-import { palette } from './var.css'
+import { background } from './vars'
 
 globalStyle('flex-center', {
   display: 'flex',
@@ -8,6 +8,6 @@ globalStyle('flex-center', {
 })
 
 globalStyle('body', {
-  backgroundColor: palette.background,
+  backgroundColor: background,
   height: '100vh'
 })

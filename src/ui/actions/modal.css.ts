@@ -1,5 +1,5 @@
 import { style, globalStyle } from '@vanilla-extract/css'
-import { palette, sizes } from '../styles/var.css'
+import { rRadius, background, rText } from '../styles/vars'
 
 export const active = style({})
 
@@ -36,8 +36,8 @@ export const modal = style({
   opacity: 0,
   width: '95%',
   maxWidth: '31.25rem',
-  backgroundColor: palette.background,
-  borderRadius: sizes.radius.md,
+  backgroundColor: background,
+  borderRadius: rRadius('md'),
   position: 'fixed',
   top: '50%',
   left: '50%',
@@ -54,6 +54,11 @@ export const modal = style({
   }
 })
 
+export const modalAction = style({
+  display: 'flex',
+  justifyContent: 'flex-end'
+})
+
 export const close = style({
   position: 'absolute',
   top: '.75rem',
@@ -61,7 +66,7 @@ export const close = style({
 })
 
 export const title = style({
-  fontSize: sizes.text['2xl'],
+  fontSize: rText('2xl'),
   marginBottom: '.75rem'
 })
 

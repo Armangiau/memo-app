@@ -1,12 +1,12 @@
 import { style } from "@vanilla-extract/css";
-import { palette, sizes } from "../styles/var.css";
+import { rHeightWidth, textColor, color } from "../styles/vars";
 
 const deleteItem = style({
-  height: sizes.buttons.heights.xs,
-  width: sizes.buttons.heights.xs,
+  height: rHeightWidth('xs'),
+  width: rHeightWidth('xs'),
   transform: 'rotate(45deg)',
-  color: palette.text.white,
-  background: palette.dark.primary,
+  color: textColor('white'),
+  background: color('primary')?.dark,
   borderRadius: '50%',
 })
 

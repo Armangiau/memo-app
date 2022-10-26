@@ -9,8 +9,8 @@ const App: Component = () => {
   return (
     <>
       <Link href="/">
-        <header class='font-headlight' style="width: 100vw;  height: 5rem; text-align: center; padding-top: 1.5rem; border-bottom-width: 2px; font-size: 2.25rem; line-height: 2.5rem; border-color: black;">
-          Audio flash-card
+        <header style="width: 100vw; height: 5rem; text-align: center; padding-top: 1.5rem; border-bottom-width: 2px; font-size: 2.25rem; line-height: 2.5rem; border-color: black;">
+          <img src="/src/assets/Audio-Flash-Cards.webp" alt="Audio Flash Card" class='inline-flex items-center h-lg'/>
         </header>
       </Link>
 

@@ -18,3 +18,6 @@ render(
   ),
   document.getElementById('root') as HTMLElement
 )
+
+import { buildObject, rText } from './ui/styles/vars'
+console.log(JSON.stringify(buildObject(rText)));

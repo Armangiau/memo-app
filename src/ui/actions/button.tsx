@@ -1,20 +1,17 @@
 import { Component, ComponentProps} from 'solid-js';
 import { btn } from './button.css'
-import { palette, colors } from '../styles/var.css';
+import { color, Colors } from '../styles/vars';
 
 interface ButtonProps extends ComponentProps<'button'> {
-  color? : colors
+  color? : Colors
 }
 
 const Button: Component<ButtonProps> = (props: ButtonProps) => {
-  const {children, color,...otherProps} = props
-  const bgcolor = color ? palette.dark[color] : undefined
-
   return (
-    <button class={btn + ' ' + otherProps.class} {...otherProps} style={{
-      background: bgcolor,
+    <button {...props} class={btn + ' ' + props.class} style={{
+      background: color(props.color)?.dark,
     }}>
-      {children}
+      {props.children}
     </button>
   )
 }

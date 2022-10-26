@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { palette, sizes } from '../styles/var.css'
+import { rPadding, rHeightWidth, color, textColor } from '../styles/vars'
 
 export const btn = style(
   {
@@ -9,12 +9,12 @@ export const btn = style(
     justifyContent: 'center',
     userSelect: 'none',
     cursor: 'pointer',
-    height: sizes.buttons.heights.md,
-    padding: sizes.buttons.paddings.md,
+    height: rHeightWidth('md'),
+    padding: rPadding('md'),
     borderRadius: '.5rem',
     fontWeight: 600,
-    color: palette.text.white,
-    background: palette.dark.primary,
+    color: textColor('white'),
+    background: color('primary')?.dark,
     transition: 'filter 0.15s ease-out, transform 0.15s ease-out',
     ':hover': {
       filter: 'saturate(95%) brightness(95%)'

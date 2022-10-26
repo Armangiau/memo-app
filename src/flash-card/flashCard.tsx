@@ -3,6 +3,8 @@ import { useParams } from '@solidjs/router'
 import PlusSVGlg from '../ui/svg/plusSVGlg'
 import DeleteQestRep from './components/deleteQestRep'
 import flashCardStore from './flashCardStore'
+import Input from '../ui/data_input/input'
+import Textarea from '../ui/data_input/textarea'
 
 const Lecture = lazy(() => import('./components/Lecture'))
 
@@ -22,7 +24,7 @@ const flashCard: Component = () => {
             const { question, réponse } = questionRéponse
             return (
               <div>
-                <input
+                <Input
                   type='text'
                   class='input input-bordered input-primary w-full sm:w-4/5 mb-4 '
                   placeholder='question'
@@ -36,15 +38,16 @@ const flashCard: Component = () => {
                   store={store}
                   indexItemToDelete={index()}
                 />
-                <textarea
-                  class='textarea textarea-secondary w-full sm:w-4/5 mb-4 ml-2 sm:ml-20'
+                <Textarea
+                  class='w-full sm:w-4/5 mb-4 ml-2 sm:ml-20'
+                  color='secondary'
                   placeholder='réponse'
                   onChange={evt => {
                     store.mise_à_jour_rép(index(), evt.currentTarget.value)
                   }}
                 >
                   {réponse}
-                </textarea>
+                </Textarea>
                 <br />
               </div>
             )

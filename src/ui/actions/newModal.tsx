@@ -35,7 +35,7 @@ const NewModal: Component<newModalProps> = (props: newModalProps) => {
           <h1 class={ml.title}>{props.title}</h1>
           <p class={ml.content}>{props.children}</p>
 
-          <div class='modal-action'>
+          <div class={ml.modalAction}>
             <Button
               color='primary'
               onClick={evt => toggle(evt, props.onSubmitBtn)}

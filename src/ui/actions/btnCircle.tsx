@@ -1,24 +1,21 @@
 import { Component, ComponentProps, splitProps } from 'solid-js';
-import { palette, colors, sizes, metrics } from "../styles/var.css";
+import { color, rHeightWidth, Sizes, Colors } from "../styles/vars";
 import btn from './btnCircle.css'
 
 interface btnCircleProps extends ComponentProps<'button'> {
-  color?: colors,
-  size?: metrics,
+  color?: Colors,
+  size?: Sizes,
 }
 
 const BtnCircle: Component<btnCircleProps> = (props: btnCircleProps) => {
-  const [rules, oProps] = splitProps(props, ['color', 'size'])
-  const bg = rules.color ? palette.dark[rules.color] : undefined
-  const size = rules.size ? sizes.buttons.heights[rules.size] : undefined
   return (
-    <button {...oProps} class={btn + ' ' + oProps?.class} style={{
-      background: bg,
-      height: size,
-      width: size,
+    <button {...props} class={btn + ' ' + props?.class} style={{
+      background: color(props.color)?.dark,
+      height: rHeightWidth(props.size),
+      width: rHeightWidth(props.size),
     }}
     >
-      {oProps.children}
+      {props.children}
     </button>
   )
 }

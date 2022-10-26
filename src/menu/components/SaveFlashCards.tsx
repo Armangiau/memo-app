@@ -71,7 +71,7 @@ const SaveFlashCards: Component = () => {
   return (
     <span class='save-flash-card'>
       <BtnCircle
-        class='relative top-0 block flex-center'
+        class='relative top-0 flex-center rounded-'
         onClick={() => {
           if (fileInput) {
             fileInput.click()
