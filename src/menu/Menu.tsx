@@ -42,14 +42,14 @@ const Menu: Component = () => {
       <Modal
         title='Ajouter une nouvelle flash-card :'
         action={
-          <BtnCircle color='action' size='lg'>
+          <BtnCircle color='action' size='lg' aria-label='Ajoutez une novelle flash card'>
             <PlusSVGlg />
           </BtnCircle>
         }
         class='fixed h-16 w-16 bottom-32'
         style='right: 10%'
-        mainBtnTitle='Ajouter'
-        onSubmitBtn={async () => {
+        btn1='Ajouter'
+        onSubmitBtn1={async () => {
           if (userTitle) {
             if (!userTitle.value.trim()) return
             await store.addFlashCard(userTitle.value)

@@ -1,11 +1,8 @@
-import { Component, ComponentProps, splitProps } from 'solid-js';
-import { color, rHeightWidth, Sizes, Colors } from "../styles/vars";
+import { Component, ComponentProps } from 'solid-js';
+import { color, rHeightWidth, ColorsAndSizes } from "../styles/vars";
 import btn from './btnCircle.css'
 
-interface btnCircleProps extends ComponentProps<'button'> {
-  color?: Colors,
-  size?: Sizes,
-}
+type btnCircleProps = ComponentProps<'button'> & ColorsAndSizes
 
 const BtnCircle: Component<btnCircleProps> = (props: btnCircleProps) => {
   return (

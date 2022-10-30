@@ -1,16 +1,13 @@
 import { Component, ComponentProps } from 'solid-js';
-import { Colors, color, rHeightWidth, rPadding, Sizes, rText } from '../styles/vars';
-import style from './textarea.css'
+import { color, ColorsAndSizes, rHeightWidth, rPadding, rText } from '../styles/vars';
+import { inputs, textarea } from './inputs.css'
 
-interface textareaProps extends ComponentProps<'textarea'> {
-  color?: Colors,
-  size?: Sizes,
-}
+type textareaProps = ComponentProps<'textarea'> & ColorsAndSizes
 
 const Textarea: Component<textareaProps> = (props: textareaProps) => {
   const colorComp = color(props.color)?.dark
   return (
-    <textarea {...props} class={style + ' ' + props?.class} style={{
+    <textarea {...props} class={`${inputs} ${textarea} ${props?.class}`} style={{
       "border-color": colorComp,
       "outline-color": colorComp,
       "font-size": rText(props.size),
@@ -19,5 +16,4 @@ const Textarea: Component<textareaProps> = (props: textareaProps) => {
     }}>{props.children}</textarea>
   )
 }
-
 export default Textarea;

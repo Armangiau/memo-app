@@ -2,7 +2,7 @@ import { Component, ComponentProps} from 'solid-js';
 import { btn } from './button.css'
 import { color, Colors } from '../styles/vars';
 
-interface ButtonProps extends ComponentProps<'button'> {
+type ButtonProps = ComponentProps<'button'> & {
   color? : Colors
 }
 

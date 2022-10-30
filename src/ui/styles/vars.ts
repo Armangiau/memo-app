@@ -1,5 +1,13 @@
 export type Metrics = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | '7xl' | '8xl' | '9xl'
 export type Sizes = Metrics | number
+export type Colors = 'primary' | 'secondary' | 'action'
+
+export type ColorsAndSizes = {
+  color?: Colors,
+  size?: Sizes,
+}
+
+
 const rem = (nRem: number) => nRem.toString()+'rem'
 const convertCoef = (size: Metrics): number => {
   switch (size) {
@@ -52,7 +60,7 @@ export const rPadding = (size: Sizes | undefined, coef: number = 1) => size ? re
 export const radius = (size: Sizes) => convert(size, 0.125, 0.125)
 export const rRadius = (size: Sizes | undefined, coef: number = 1) => size ? rem((radius(size) * coef)) : undefined
 
-export const buildObject = (convertion: (size: Sizes | undefined, coef: number) => string | undefined) => {
+const buildObject = (convertion: (size: Sizes | undefined, coef: number) => string | undefined) => {
   let obj = {}
   const s = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl', '7xl', '8xl', '9xl']
   for (const item of s) {
@@ -61,8 +69,16 @@ export const buildObject = (convertion: (size: Sizes | undefined, coef: number) 
   return obj
 }
 
+export const objectConf = () => {
+  const sizeFunction = [ rText, rHeightWidth, rPadding, rRadius ]
+  let obj = {}
+  for (const item of sizeFunction) {
+    obj = Object.assign(obj, {[item.name]: buildObject(item)})
+  }
+  return obj
+}
+
 import { palette } from "./var.css"
-export type Colors = 'primary' | 'secondary' | 'action'
 
 export const color = (color: Colors | undefined) => color ? palette[color] : undefined
 export const textColor = (color: 'white' | 'black') => color ? palette.text[color] : undefined

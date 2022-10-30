@@ -2,7 +2,6 @@
 import { render } from 'solid-js/web'
 import { Router } from '@solidjs/router'
 
-import './ui/styles/fonts.css'
 import './ui/styles/var.css'
 import './ui/styles/tailwind.css'
 import './ui/styles/index.css'
@@ -19,5 +18,5 @@ render(
   document.getElementById('root') as HTMLElement
 )
 
-import { buildObject, rText } from './ui/styles/vars'
-console.log(JSON.stringify(buildObject(rText)));
+import { objectConf } from './ui/styles/vars'
+console.log(JSON.stringify(objectConf()));

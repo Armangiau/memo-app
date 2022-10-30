@@ -27,10 +27,10 @@ export interface ModalProps extends ComponentProps<'div'> {
   title: string
   children: JSX.Element
   action?: JSX.Element
-  mainBtnTitle?: string
-  onSubmitBtn?: () => void
-  secondBtnTitle?: string
-  onSubmitSecondBtn?: () => void
+  btn1?: string
+  onSubmitBtn1?: () => void
+  btn2?: string
+  onSubmitBtn2?: () => void
 }
 
 const Modal: Component<ModalProps> = (props: ModalProps) => {
@@ -43,10 +43,10 @@ const Modal: Component<ModalProps> = (props: ModalProps) => {
     [
       'title',
       'children',
-      'mainBtnTitle',
-      'onSubmitBtn',
-      'secondBtnTitle',
-      'onSubmitSecondBtn'
+      'btn1',
+      'onSubmitBtn1',
+      'btn2',
+      'onSubmitBtn2'
     ]
   )
 

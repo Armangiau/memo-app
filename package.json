@@ -22,7 +22,6 @@
   "dependencies": {
     "@solidjs/router": "^0.4.3",
     "bootstrap-icons": "^1.9.1",
-    "daisyui": "^2.24.0",
     "file-saver": "^2.0.5",
     "idb": "^7.0.2",
     "solid-js": "^1.5.1"

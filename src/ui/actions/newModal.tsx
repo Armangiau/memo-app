@@ -38,17 +38,17 @@ const NewModal: Component<newModalProps> = (props: newModalProps) => {
           <div class={ml.modalAction}>
             <Button
               color='primary'
-              onClick={evt => toggle(evt, props.onSubmitBtn)}
+              onClick={evt => toggle(evt, props.onSubmitBtn1)}
             >
-              {props.mainBtnTitle || 'Envoyer'}
+              {props.btn1 || 'Envoyer'}
             </Button>
 
-            <Show when={props.secondBtnTitle}>
+            <Show when={props.btn2}>
               <Button
                 color='secondary'
-                onClick={evt => toggle(evt, props.onSubmitSecondBtn)}
+                onClick={evt => toggle(evt, props.onSubmitBtn2)}
               >
-                {props.secondBtnTitle}
+                {props.btn2}
               </Button>
             </Show>
           </div>

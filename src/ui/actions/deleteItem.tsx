@@ -2,12 +2,9 @@ import { Component, ComponentProps } from 'solid-js'
 import PlusSVGlg from '../svg/plusSVGlg'
 import BtnCircle from './btnCircle'
 import deleteItem from './deleteItem.css'
-import { colors } from '../styles/var.css'
+import { ColorsAndSizes } from '../styles/vars'
 
-interface deleteMenuProps extends ComponentProps<'button'> {
-  class?: string,
-  color?: colors
-}
+type deleteMenuProps = ComponentProps<'button'> & ColorsAndSizes
 
 const DeleteItem: Component<deleteMenuProps> = (props: deleteMenuProps) => { 
   return (

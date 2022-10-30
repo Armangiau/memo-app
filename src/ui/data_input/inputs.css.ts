@@ -9,9 +9,7 @@ import {
   rText
 } from '../styles/vars'
 
-export default style({
-  minHeight: rHeightWidth('md'),
-  padding: `${rPadding('md', 0.5)} ${rPadding('md')}`,
+export const inputs = style({
   borderWidth: '1px',
   borderRadius: rRadius('md'),
   color: textColor('black'),
@@ -22,4 +20,15 @@ export default style({
     outline: `2px solid ${color('primary')?.dark}`,
     outlineOffset: '2px'
   }
+})
+
+export const input = style({
+  height: rHeightWidth('md'),
+  paddingLeft: rPadding('md'),
+  paddingRight: rPadding('md'),
+})
+
+export const textarea = style({
+  minHeight: rHeightWidth('md'),
+  padding: `${rPadding('md', 0.5)} ${rPadding('md')}`,
 })

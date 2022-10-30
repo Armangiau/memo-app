@@ -71,7 +71,8 @@ const SaveFlashCards: Component = () => {
   return (
     <span class='save-flash-card'>
       <BtnCircle
-        class='relative top-0 flex-center rounded-'
+        class='relative top-0 flex-center'
+        aria-label="exporter un fichier de sauvegarde de mes flash cards dans l'ordinateur"
         onClick={() => {
           if (fileInput) {
             fileInput.click()
@@ -95,6 +96,7 @@ const SaveFlashCards: Component = () => {
 
       <BtnCircle
         class='relative top-8 flex-center'
+        aria-label="importer un fichier de sauvegarde"
         onClick={nouvelleSauvegarde}
       >
         <svg fill='currentColor' class='h-6' viewBox='0 0 16 16'>

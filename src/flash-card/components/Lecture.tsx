@@ -11,6 +11,7 @@ import { my_db } from '../../web_api/database'
 import { ErrorDB } from '../../defaultToast'
 import Modal from '../../ui/actions/Modal'
 import BtnCircle from '../../ui/actions/btnCircle'
+import Select from '../../ui/data_input/select'
 
 interface LectureProps extends ComponentProps<any> {
   flashCardName: string
@@ -99,18 +100,18 @@ const Lecture: Component<LectureProps> = (props: LectureProps) => {
       <Modal
         title = 'Choisir votre voix :'
         action = {openModalBtn}
-        onSubmitBtn={() => {
+        onSubmitBtn1={() => {
           setModeLectureCards(true)
           if (selectLang) {
             lecture_questionRéponse(props.flashCardName, selectLang)
           }
         }}
-        mainBtnTitle='Choisir'
+        btn1='Choisir'
       >
         <>
-          <select
+          <Select
             ref={selectLang}
-            class='select select-bordered select-primary w-4/5 mt-4'
+            class='w-full my-4'
           >
             <For each={frenchVoices}>
               {frenchVoice => (
@@ -122,7 +123,7 @@ const Lecture: Component<LectureProps> = (props: LectureProps) => {
                 </option>
               )}
             </For>
-          </select>
+          </Select>
         </>
       </Modal>
       <Show when={modeLectureCards()}>
