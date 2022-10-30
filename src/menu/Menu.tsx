@@ -42,7 +42,7 @@ const Menu: Component = () => {
       <Modal
         title='Ajouter une nouvelle flash-card :'
         action={
-          <BtnCircle color='action' size='lg' aria-label='Ajoutez une novelle flash card'>
+          <BtnCircle color='action' size='lg' title='Ajoutez une novelle flash card'>
             <PlusSVGlg />
           </BtnCircle>
         }

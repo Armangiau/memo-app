@@ -5,6 +5,7 @@ import DeleteQestRep from './components/deleteQestRep'
 import flashCardStore from './flashCardStore'
 import Input from '../ui/data_input/input'
 import Textarea from '../ui/data_input/textarea'
+import BtnCircle from '../ui/actions/btnCircle'
 
 const Lecture = lazy(() => import('./components/Lecture'))
 
@@ -53,13 +54,16 @@ const flashCard: Component = () => {
             )
           }}
         </For>
-        <button
-          class='h-14 w-14 bottom-20 right-10 bg-gray-100 modal-button mx-auto text-gray-600'
-          style='border-radius: 50%'
+        <BtnCircle
+          color='secondary'
+          fill='light'
+          size='lg'
           onClick={store.nouvelles_questionRéponse}
+          class='bottom-20 right-10 mx-auto'
         >
           <PlusSVGlg />
-        </button>
+        </BtnCircle>
+
         <div class='h-96 w-sreen'></div>
         {/* add an empty space under questions and responeces*/}
       </div>

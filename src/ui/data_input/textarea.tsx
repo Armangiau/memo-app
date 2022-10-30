@@ -5,7 +5,7 @@ import { inputs, textarea } from './inputs.css'
 type textareaProps = ComponentProps<'textarea'> & ColorsAndSizes
 
 const Textarea: Component<textareaProps> = (props: textareaProps) => {
-  const colorComp = color(props.color)?.dark
+  const colorComp = color(props.color)
   return (
     <textarea {...props} class={`${inputs} ${textarea} ${props?.class}`} style={{
       "border-color": colorComp,

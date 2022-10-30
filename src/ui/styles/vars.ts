@@ -1,10 +1,12 @@
 export type Metrics = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | '7xl' | '8xl' | '9xl'
 export type Sizes = Metrics | number
 export type Colors = 'primary' | 'secondary' | 'action'
+export type Fill = 'dark' | 'light' 
 
 export type ColorsAndSizes = {
   color?: Colors,
   size?: Sizes,
+  fill?: Fill
 }
 
 
@@ -39,6 +41,7 @@ const convertCoef = (size: Metrics): number => {
       return 54
   }
 }
+
 export const remVal = (nValRem: number) => nValRem / 4
 const convert = (size: Sizes, start: number, coef: number) => {
   if (typeof size === 'number') {
@@ -80,6 +83,22 @@ export const objectConf = () => {
 
 import { palette } from "./var.css"
 
-export const color = (color: Colors | undefined) => color ? palette[color] : undefined
-export const textColor = (color: 'white' | 'black') => color ? palette.text[color] : undefined
+export const color = (color: Colors | undefined, fill?: Fill | undefined) => {
+  if (color && fill) {
+    return palette[color][fill]
+  } else if (color) {
+    return palette[color].dark
+  }
+}
+export const textColor = (color: 'white' | 'black' | Fill | undefined) => color ? palette.text[color] : undefined
+
+export const textColorFill = (fill: Fill | undefined) => {
+  switch(fill){
+    case 'light':
+      return palette.text.dark
+    case 'dark':
+      return palette.text.light
+  }
+}
+
 export const background = palette.background

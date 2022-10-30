@@ -6,7 +6,7 @@ const deleteItem = style({
   width: rHeightWidth('xs'),
   transform: 'rotate(45deg)',
   color: textColor('white'),
-  background: color('primary')?.dark,
+  background: color('primary'),
   borderRadius: '50%',
 })
 

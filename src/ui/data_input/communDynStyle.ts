@@ -1,7 +1,7 @@
 import { color, rHeightWidth, rPadding, rText, ColorsAndSizes } from '../styles/vars';
 
 export const inputStyle = (props: ColorsAndSizes) => {
-  const colorComp = color(props.color)?.dark
+  const colorComp = color(props.color)
   return {
     "border-color": colorComp,
     "outline-color": colorComp,

@@ -3,7 +3,7 @@ import { textColor, color, rHeightWidth } from '../styles/vars'
 
 const btnCircle = style({
   color: textColor('white'),
-  background: color('primary')?.dark,
+  background: color('primary'),
   height: rHeightWidth('sm'),
   width: rHeightWidth('sm'),
   borderRadius: '50%',

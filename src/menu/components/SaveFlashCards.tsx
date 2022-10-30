@@ -2,11 +2,12 @@ import { Component } from 'solid-js'
 import { my_db, addFlashCardInDB } from '../../web_api/database'
 import { DBValues } from '../../web_api/database'
 import BtnCircle from '../../ui/actions/btnCircle'
+import Archive from "../../ui/svg/archive";
+import Download from '../../ui/svg/download';
 
 const SaveFlashCards: Component = () => {
   const nouvelleSauvegarde = async () => {
     const fileSaver = import('file-saver')
-
     const FlashCards = await my_db.getAll('flash-cards')
     const textToDownload = JSON.stringify(FlashCards)
     const date = new Date()
@@ -72,17 +73,14 @@ const SaveFlashCards: Component = () => {
     <span class='save-flash-card'>
       <BtnCircle
         class='relative top-0 flex-center'
-        aria-label="exporter un fichier de sauvegarde de mes flash cards dans l'ordinateur"
+        title="exporter un fichier de sauvegarde de mes flash cards dans l'ordinateur"
         onClick={() => {
           if (fileInput) {
             fileInput.click()
           }
         }}
       >
-        <svg fill='currentColor' class='h-6' viewBox='0 0 16 16'>
-          <path d='M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707V11.5z' />
-          <path d='M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z' />
-        </svg>
+        <Archive />
       </BtnCircle>
 
       <input
@@ -96,13 +94,10 @@ const SaveFlashCards: Component = () => {
 
       <BtnCircle
         class='relative top-8 flex-center'
-        aria-label="importer un fichier de sauvegarde"
+        title="importer un fichier de sauvegarde"
         onClick={nouvelleSauvegarde}
       >
-        <svg fill='currentColor' class='h-6' viewBox='0 0 16 16'>
-          <path d='M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z' />
-          <path d='M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z' />
-        </svg>
+        <Download />
       </BtnCircle>
     </span>
   )

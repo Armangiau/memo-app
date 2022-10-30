@@ -15,9 +15,9 @@ export const inputs = style({
   color: textColor('black'),
   fontSize: rText('md'),
   backgroundColor: background,
-  borderColor: color('primary')?.dark,
+  borderColor: color('primary'),
   ':focus': {
-    outline: `2px solid ${color('primary')?.dark}`,
+    outline: `2px solid ${color('primary')}`,
     outlineOffset: '2px'
   }
 })
