@@ -27,7 +27,7 @@ const flashCard: Component = () => {
               <div>
                 <Input
                   type='text'
-                  class='input input-bordered input-primary w-full sm:w-4/5 mb-4 '
+                  class='input input-bordered input-primary w-full sm:w-4/5 mb-4'
                   placeholder='question'
                   value={question}
                   onChange={evt => {

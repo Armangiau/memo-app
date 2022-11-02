@@ -6,11 +6,13 @@ import Archive from "../../ui/svg/archive";
 import Download from '../../ui/svg/download';
 
 const SaveFlashCards: Component = () => {
+
   const nouvelleSauvegarde = async () => {
     const fileSaver = import('file-saver')
     const FlashCards = await my_db.getAll('flash-cards')
     const textToDownload = JSON.stringify(FlashCards)
     const date = new Date()
+    
     const deuxChiffres = (dateOrMonth: number): string => {
       if (dateOrMonth < 10) {
         return `0${dateOrMonth}`
@@ -64,7 +66,6 @@ const SaveFlashCards: Component = () => {
       }
       ajouterSauvegardeDB(JSONcontent)
     })
-
     reader.readAsText(file)
   }
 
@@ -73,14 +74,14 @@ const SaveFlashCards: Component = () => {
     <span class='save-flash-card'>
       <BtnCircle
         class='relative top-0 flex-center'
-        title="exporter un fichier de sauvegarde de mes flash cards dans l'ordinateur"
+        title="importer un fichier de sauvegarde"
         onClick={() => {
           if (fileInput) {
             fileInput.click()
           }
         }}
       >
-        <Archive />
+        <Download />
       </BtnCircle>
 
       <input
@@ -94,10 +95,10 @@ const SaveFlashCards: Component = () => {
 
       <BtnCircle
         class='relative top-8 flex-center'
-        title="importer un fichier de sauvegarde"
+        title="exporter un fichier de sauvegarde de mes flash cards dans l'ordinateur"
         onClick={nouvelleSauvegarde}
       >
-        <Download />
+        <Archive />
       </BtnCircle>
     </span>
   )
