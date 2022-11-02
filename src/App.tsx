@@ -4,7 +4,7 @@ import title from "./assets/Audio-Flash-Cards.webp";
 
 const Menu = lazy(() => import('./menu/Menu'))
 
-const flashCard = lazy(() => import('./flash-card/flashCard'))
+const flashCard = lazy(() => import('./flash-card/FlashCardProvider'))
 
 const App: Component = () => {
   return (

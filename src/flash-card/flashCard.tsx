@@ -1,24 +1,27 @@
-import { Component, For, lazy } from 'solid-js'
-import { useParams } from '@solidjs/router'
+import { Component, ComponentProps, For, lazy } from 'solid-js'
 import PlusSVGlg from '../ui/svg/plusSVGlg'
 import DeleteQestRep from './components/deleteQestRep'
-import flashCardStore from './flashCardStore'
 import Input from '../ui/data_input/input'
 import Textarea from '../ui/data_input/textarea'
 import BtnCircle from '../ui/actions/btnCircle'
+import { useFlashCard } from './flashCardStore'
 
 const Lecture = lazy(() => import('./components/Lecture'))
 
-const flashCard: Component = () => {
-  const flashCardName = useParams().name
-  const store = new flashCardStore(flashCardName)
-  store.loadQuestionsRéponses()
+interface flashCardProps extends ComponentProps<any> {
+  flashCardName: string
+}
 
-  const questionsRéponses = store.passStore
-
+const flashCard: Component<flashCardProps>  = (props: flashCardProps) => {
+  const {
+    questionsRéponses,
+    mise_à_jour_qest,
+    mise_à_jour_rép,
+    nouvelles_questionRéponse
+  } = useFlashCard()
   return (
     <>
-      <h1 class='text-center text-4xl m-5'>{flashCardName}</h1>
+      <h1 class='text-center text-4xl m-5'>{props.flashCardName}</h1>
       <div class='my-5 mx-auto text-center max-w-4xl flex flex-col px-3'>
         <For each={questionsRéponses}>
           {(questionRéponse, index) => {
@@ -31,12 +34,11 @@ const flashCard: Component = () => {
                   placeholder='question'
                   value={question}
                   onChange={evt => {
-                    store.mise_à_jour_qest(index(), evt.currentTarget.value)
+                    mise_à_jour_qest(index(), evt.currentTarget.value)
                   }}
                 />
                 <DeleteQestRep
                   class='relative top-2 left-4'
-                  store={store}
                   indexItemToDelete={index()}
                 />
                 <Textarea
@@ -44,7 +46,7 @@ const flashCard: Component = () => {
                   color='secondary'
                   placeholder='réponse'
                   onChange={evt => {
-                    store.mise_à_jour_rép(index(), evt.currentTarget.value)
+                    mise_à_jour_rép(index(), evt.currentTarget.value)
                   }}
                 >
                   {réponse}
@@ -58,7 +60,7 @@ const flashCard: Component = () => {
           color='secondary'
           fill='light'
           size='lg'
-          onClick={store.nouvelles_questionRéponse}
+          onClick={nouvelles_questionRéponse}
           class='bottom-20 right-10 mx-auto'
         >
           <PlusSVGlg />
@@ -67,7 +69,7 @@ const flashCard: Component = () => {
         <div class='h-96 w-sreen'></div>
         {/* add an empty space under questions and responeces*/}
       </div>
-      <Lecture flashCardName={flashCardName} />
+      <Lecture flashCardName={props.flashCardName} />
     </>
   )
 }
