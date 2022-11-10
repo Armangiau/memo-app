@@ -20,11 +20,24 @@ const emptyQuestRep = {
 }
 
 export const flashCardStore = (flashCardName: string) => {
+
   const load = async () =>
     (await my_db.getFromIndex('flash-cards', 'name', flashCardName))
       ?.questionsRéponses
+
   const [ressouce] = createResource(load)
   const [questionsRéponses, setQuestionsRéponses] = createStore([] as QestRep)
+
+  createEffect(() => {
+    if (!ressouce.loading) {
+      if (ressouce() && !ressouce.error) {
+        setQuestionsRéponses(ressouce() as QestRep)
+      } else {
+        ErrorDB(`${ressouce.error}, ressource: ${ressouce()}`)
+      }
+    }
+  })
+
   const store = {
     questionsRéponses,
     mise_à_jour_qest (insex: number, newVal: string) {
@@ -56,16 +69,6 @@ export const flashCardStore = (flashCardName: string) => {
       )
     }
   }
-
-  createEffect(() => {
-    if (!ressouce.loading) {
-      if (ressouce() && !ressouce.error) {
-        setQuestionsRéponses(ressouce() as QestRep)
-      } else {
-        ErrorDB()
-      }
-    }
-  })
 
   return store
 }

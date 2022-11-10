@@ -14,7 +14,6 @@ const flashCards = store.passStore
 
 const Menu: Component = () => {
   let userTitle: HTMLInputElement | undefined
-
   return (
     <>
       <div

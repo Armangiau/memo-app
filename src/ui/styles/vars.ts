@@ -9,6 +9,13 @@ export type ColorsAndSizes = {
   fill?: Fill
 }
 
+export const screenSizes = {
+  sm: 'screen and (min-width: 640px)',
+  md: 'screen and (min-width: 768px)',
+  lg: 'screen and (min-width: 1024px)',
+  xl: 'screen and (min-width: 1280px)',
+  '2xl': 'screen and (min-width: 1536px)'
+}
 
 const rem = (nRem: number) => nRem.toString()+'rem'
 const convertCoef = (size: Metrics): number => {

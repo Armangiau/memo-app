@@ -8,7 +8,8 @@ export const flee = async (elm: HTMLElement | null | undefined, duration: number
   {
     duration: duration,
     easing: 'ease-out',
-    fill: 'forwards'
+    fill: 'forwards',
+    iterations: 1
   })
   await sleep(duration)
 }

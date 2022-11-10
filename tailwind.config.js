@@ -90,7 +90,10 @@ module.exports = {
         '7xl': '4.125rem',
         '8xl': '5.25rem',
         '9xl': '6.875rem'
-      }
+      },
+      fontFamily: {
+        title: ['K2D', ...defaultTheme.fontFamily.sans]
+      },
     }
   }
 }

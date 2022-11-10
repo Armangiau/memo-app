@@ -5,6 +5,7 @@ import Input from '../ui/data_input/input'
 import Textarea from '../ui/data_input/textarea'
 import BtnCircle from '../ui/actions/btnCircle'
 import { useFlashCard } from './flashCardStore'
+import { headerLoad } from '../ui/animation/load'
 
 const Lecture = lazy(() => import('./components/Lecture'))
 
@@ -13,6 +14,7 @@ interface flashCardProps extends ComponentProps<any> {
 }
 
 const flashCard: Component<flashCardProps>  = (props: flashCardProps) => {
+  headerLoad(true)
   const {
     questionsRéponses,
     mise_à_jour_qest,
