@@ -1,10 +1,10 @@
 import { Component } from 'solid-js'
-import headerCss from './header.css'
+import { header, heading } from './header.css'
 
 const Header: Component = () => {
   return (
-    <header style='line-height: 2.5rem' class={`font-title ${headerCss}`} id='header'>
-      <h1>Audio Flash Card</h1>
+    <header class={`font-title flex-center ${header}`}>
+      <h1 class={heading} id='Title'>Audio Flash Card</h1>
     </header>
   )
 }

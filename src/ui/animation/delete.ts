@@ -1,4 +1,4 @@
-const sleep = (m: number) => new Promise(r => setTimeout(r, m))
+import { sleep } from "./animationUtilitises"
 
 export const flee = async (elm: HTMLElement | null | undefined, duration: number = 500) => {
   elm?.animate([

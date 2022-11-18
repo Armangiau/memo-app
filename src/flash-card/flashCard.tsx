@@ -4,8 +4,8 @@ import DeleteQestRep from './components/deleteQestRep'
 import Input from '../ui/data_input/input'
 import Textarea from '../ui/data_input/textarea'
 import BtnCircle from '../ui/actions/btnCircle'
+import { titleSize } from './flashCard.css'
 import { useFlashCard } from './flashCardStore'
-import { headerLoad } from '../ui/animation/load'
 
 const Lecture = lazy(() => import('./components/Lecture'))
 
@@ -14,7 +14,6 @@ interface flashCardProps extends ComponentProps<any> {
 }
 
 const flashCard: Component<flashCardProps>  = (props: flashCardProps) => {
-  headerLoad(true)
   const {
     questionsRéponses,
     mise_à_jour_qest,
@@ -23,7 +22,7 @@ const flashCard: Component<flashCardProps>  = (props: flashCardProps) => {
   } = useFlashCard()
   return (
     <>
-      <h1 class='text-center text-4xl m-5'>{props.flashCardName}</h1>
+      <h1 class={`font-title text-center ${titleSize} m-2 lg:m-4`}>{props.flashCardName}</h1>
       <div class='my-5 mx-auto text-center max-w-4xl flex flex-col px-3'>
         <For each={questionsRéponses}>
           {(questionRéponse, index) => {
@@ -32,7 +31,7 @@ const flashCard: Component<flashCardProps>  = (props: flashCardProps) => {
               <div>
                 <Input
                   type='text'
-                  class='input input-bordered input-primary w-full sm:w-4/5 mb-4'
+                  class='w-10/12 sm:w-4/5 mb-2 lg:mb-4'
                   placeholder='question'
                   value={question}
                   onChange={evt => {
@@ -40,11 +39,11 @@ const flashCard: Component<flashCardProps>  = (props: flashCardProps) => {
                   }}
                 />
                 <DeleteQestRep
-                  class='relative top-2 left-4'
+                  class='relative top-2 left-2 sm:left-4'
                   indexItemToDelete={index()}
                 />
                 <Textarea
-                  class='w-full sm:w-4/5 mb-4 ml-2 sm:ml-20'
+                  class='w-10/12 sm:w-4/5 mb-4 ml-2 sm:ml-20'
                   color='secondary'
                   placeholder='réponse'
                   onChange={evt => {

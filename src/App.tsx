@@ -1,22 +1,16 @@
-import { Component, lazy } from 'solid-js'
-import { Routes, Route, Link } from '@solidjs/router'
+import { Component } from 'solid-js'
+import { Link } from '@solidjs/router'
 import Header from './ui/header'
-import { headerLoad } from './ui/animation/load'
+import Routes from './Routes'
 
-const Menu = lazy(() => import('./menu/Menu'))
-
-const flashCard = lazy(() => import('./flash-card/FlashCardProvider'))
 
 const App: Component = () => {
   return (
     <>
-      <Link href="/">
+      <Link href='/'>
         <Header />
       </Link>
-      <Routes>
-        <Route path='/' component={Menu} />
-        <Route path='/flashCard/:name' component={flashCard} />
-      </Routes>
+      <Routes />
     </>
   )
 }

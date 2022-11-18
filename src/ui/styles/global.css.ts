@@ -13,7 +13,6 @@ globalStyle('body', {
   height: '100vh'
 })
 
-
 globalFontFace('K2D', {
-  src: 'url("src/assets/K2D-SemiBold.woff2") format("woff2")'
+  src: 'url("../src/assets/K2DSemiBold.woff2") format("woff2")'
 })

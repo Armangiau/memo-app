@@ -1,23 +1,18 @@
 import { style } from '@vanilla-extract/css'
-import { color, rHeightWidth, rPadding, rText, screenSizes, textColor } from './styles/vars'
+import { color, rHeightWidth, rText, textColor } from './styles/vars'
 
-const headerCss = style({
+export const header = style({
   width: '100vw',
-  height: rHeightWidth('2xl'),
+  height: `clamp(0rem, 25vw, ${rHeightWidth('3xl')})`,
   textAlign: 'center',
-  paddingTop: rPadding('lg'),
   borderBottom: `2px solid ${textColor('black')}`,
-  fontSize: rText('4xl'),
-  fontWeight: 600,
-  backgroundImage: `linear-gradient(90deg, ${color('primary')} 40%, ${color('secondary')} 50%, ${color('action')} 60%)`,
-  WebkitTextFillColor: 'transparent',
-  WebkitBackgroundClip: 'text',
-  '@media': {
-    [screenSizes.sm] : {
-      fontSize: rText('6xl')
-    }
-  }
 })
 
-
-export default headerCss
+export const heading = style({
+  fontSize: `clamp(${rText('2xl')}, 9vw, ${rText('6xl')})`,
+  fontWeight: 600,
+  background: `linear-gradient(to right,  ${color('action')} 0%, ${color('action')} 16.5%, ${color('primary')} 16.5%, ${color('primary')} 49.5%,  ${color('secondary')} 49.5%, ${color('secondary')} 82.5%, ${color('action')} 82.5%, ${color('action')} 100%)`,
+  WebkitTextFillColor: 'transparent',
+  WebkitBackgroundClip: 'text',
+  backgroundSize: '400%',
+})
