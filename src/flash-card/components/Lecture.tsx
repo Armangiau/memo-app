@@ -48,6 +48,11 @@ const Lecture: Component<LectureProps> = (props: LectureProps) => {
           resolve()
         }
       })
+      document.addEventListener('touchend', evt => {
+      
+          resolve()
+        
+      })
     })
 
   const lecture_questionRéponse = async (
