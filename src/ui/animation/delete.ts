@@ -1,4 +1,4 @@
-import { sleep } from "./animationUtilitises"
+import { sleep } from "../../globalFuncUtilitises"
 
 export const flee = async (elm: HTMLElement | null | undefined, duration: number = 500) => {
   elm?.animate([

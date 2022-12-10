@@ -1,10 +1,16 @@
+import { MapLeafNodes, CSSVarFunction } from "@vanilla-extract/private/dist/declarations/src";
+
 export type Metrics = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | '7xl' | '8xl' | '9xl'
 export type Sizes = Metrics | number
 export type Colors = 'primary' | 'secondary' | 'action'
+export type Color = MapLeafNodes<{
+  light: string;
+  dark: string;
+}, CSSVarFunction>
 export type Fill = 'dark' | 'light' 
 
 export type ColorsAndSizes = {
-  color?: Colors,
+  color?: Colors | Color,
   size?: Sizes,
   fill?: Fill
 }
@@ -17,42 +23,44 @@ export const screenSizes = {
   '2xl': 'screen and (min-width: 1536px)'
 }
 
-const rem = (nRem: number) => nRem.toString()+'rem'
+export const xs = 0, sm = 1, md = 2, lg = 4, xl = 5, xl2 = 6, xl3 = 8, xl4 = 12, xl5 = 18, xl6 = 25, xl7 = 32, xl8 = 41, xl9 = 54
+
+export const rem = (nRem: number) => nRem.toString()+'rem'
+export const px = (nPx: number) => nPx.toString()+'px'
 const convertCoef = (size: Metrics): number => {
   switch (size) {
     case 'xs':
-      return 0
+      return xs
     case 'sm':
-      return 1
+      return sm
     case 'md':
-      return 2
+      return md
     case 'lg':
-      return 4
+      return lg
     case 'xl':
-      return 5
+      return xl
     case '2xl':
-      return 6
+      return xl2
     case '3xl':
-      return 8
+      return xl3
     case '4xl':
-      return 12
+      return xl4
     case '5xl':
-      return 18
+      return xl5
     case '6xl':
-      return 25
+      return xl6
     case '7xl':
-      return 32
+      return xl7
     case '8xl':
-      return 41
+      return xl8
     case '9xl':
-      return 54
+      return xl9
   }
 }
 
-export const remVal = (nValRem: number) => nValRem / 4
 const convert = (size: Sizes, start: number, coef: number) => {
   if (typeof size === 'number') {
-    return remVal(size) 
+    return size 
   } else {
     return (coef * convertCoef(size)) + start
   }
@@ -90,13 +98,16 @@ export const objectConf = () => {
 
 import { palette } from "./var.css"
 
-export const color = (color: Colors | undefined, fill?: Fill | undefined) => {
-  if (color && fill) {
-    return palette[color][fill]
-  } else if (color) {
-    return palette[color].dark
+export const primary = palette.primary, secondary = palette.secondary, action = palette.action
+export const color = (color: Colors | Color | undefined, fill?: Fill | undefined) => {
+  switch (typeof color) {
+    case 'string' :
+      return fill ? palette[color][fill] : palette[color].dark
+    case 'object':
+      return fill ? color[fill] : color.dark
   }
 }
+
 export const textColor = (color: 'white' | 'black' | Fill | undefined) => color ? palette.text[color] : undefined
 
 export const textColorFill = (fill: Fill | undefined) => {

@@ -16,6 +16,7 @@ class methodStore {
         flashCards.unshift(newTitle)
       })
     )
+    console.log(this.flashCards);
   }
 
   updateMenu = async (flashCardToDelete: string) => {

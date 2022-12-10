@@ -1,13 +1,10 @@
-import { createStore, produce } from 'solid-js/store'
-import { my_db, mise_à_jour_flashCard } from '../web_api/database'
-import { ErrorDB } from '../defaultToast'
+import { produce } from 'solid-js/store'
 import {
   createContext,
-  createEffect,
-  createResource,
   useContext
 } from 'solid-js'
 import { Context } from 'solid-js'
+import { createPersistantStore } from '../web_api/storeInMemory'
 
 type QestRep = {
   question: string
@@ -20,53 +17,38 @@ const emptyQuestRep = {
 }
 
 export const flashCardStore = (flashCardName: string) => {
-
-  const load = async () =>
-    (await my_db.getFromIndex('flash-cards', 'name', flashCardName))
-      ?.questionsRéponses
-
-  const [ressouce] = createResource(load)
-  const [questionsRéponses, setQuestionsRéponses] = createStore([] as QestRep)
-
-  createEffect(() => {
-    if (!ressouce.loading) {
-      if (ressouce() && !ressouce.error) {
-        setQuestionsRéponses(ressouce() as QestRep)
-      } else {
-        ErrorDB(`${ressouce.error}, ressource: ${ressouce()}`)
-      }
-    }
-  })
+  const [questionsRéponses, setQuestionsRéponses, setInDB] = createPersistantStore({qr: [emptyQuestRep]}, flashCardName)
 
   const store = {
     questionsRéponses,
     mise_à_jour_qest (insex: number, newVal: string) {
-      mise_à_jour_flashCard(flashCardName, questRép => {
-        questRép.questionsRéponses[insex].question = newVal
-        return questRép
+      setInDB(qestrep => {
+        qestrep.qr[insex].question = newVal
+        return qestrep
       })
     },
     mise_à_jour_rép (insex: number, newVal: string) {
-      mise_à_jour_flashCard(flashCardName, questRép => {
-        questRép.questionsRéponses[insex].réponse = newVal
-        return questRép
+      setInDB(qestrep => {
+        qestrep.qr[insex].réponse = newVal
+        return qestrep
       })
     },
     nouvelles_questionRéponse () {
-      mise_à_jour_flashCard(flashCardName, questRép => {
-        questRép.questionsRéponses.push(emptyQuestRep)
-        return questRép
+      setQuestionsRéponses(qestrep => {
+        console.log(qestrep)
+        qestrep.qr.push(emptyQuestRep)
+        console.log(qestrep);
+        
+        return qestrep
       })
-      setQuestionsRéponses(produce(flashCard => flashCard.push(emptyQuestRep)))
+      console.log(questionsRéponses)
     },
-    deleteQestRep (indexItemToDelete: number) {
-      mise_à_jour_flashCard(flashCardName, questRép => {
-        questRép.questionsRéponses.splice(indexItemToDelete, 1)
-        return questRép
+    deleteQestRep(indexItemToDelete: number) {
+      setQuestionsRéponses(qestrep => {
+        qestrep.qr.splice(indexItemToDelete)
+        return qestrep
       })
-      setQuestionsRéponses(
-        produce(flashCard => flashCard.splice(indexItemToDelete, 1))
-      )
+      console.log(questionsRéponses)
     }
   }
 
