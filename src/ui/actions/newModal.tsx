@@ -7,6 +7,7 @@ import { Portal } from 'solid-js/web'
 import Button from './button'
 import DeleteItem from './deleteItem'
 import * as ml from './modal.css'
+import { primary, secondary } from '../styles/vars'
 
 
 interface newModalProps extends ModalProps {
@@ -37,7 +38,7 @@ const NewModal: Component<newModalProps> = (props: newModalProps) => {
 
           <div class={ml.modalAction}>
             <Button
-              color='primary'
+              color={primary}
               onClick={evt => toggle(evt, props.onSubmitBtn1)}
             >
               {props.btn1 || 'Envoyer'}
@@ -45,7 +46,7 @@ const NewModal: Component<newModalProps> = (props: newModalProps) => {
 
             <Show when={props.btn2}>
               <Button
-                color='secondary'
+                color={secondary}
                 onClick={evt => toggle(evt, props.onSubmitBtn2)}
               >
                 {props.btn2}

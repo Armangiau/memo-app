@@ -8,6 +8,7 @@ import Modal from '../ui/actions/Modal'
 import menuStore from './menuStore'
 import BtnCircle from '../ui/actions/btnCircle'
 import Input from '../ui/data_input/input'
+import { action, lg } from '../ui/styles/vars'
 
 const store = menuStore
 const flashCards = store.passStore
@@ -41,7 +42,7 @@ const Menu: Component = () => {
       <Modal
         title='Ajouter une nouvelle flash-card :'
         action={
-          <BtnCircle color='action' size='lg' title='Ajoutez une novelle flash card'>
+          <BtnCircle color={action} size={lg} title='Ajoutez une novelle flash card'>
             <PlusSVGlg />
           </BtnCircle>
         }

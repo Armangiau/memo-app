@@ -17,6 +17,3 @@ render(
   ),
   document.getElementById('root') as HTMLElement
 )
-
-import { objectConf } from './ui/styles/vars'
-console.log(JSON.stringify(objectConf()));

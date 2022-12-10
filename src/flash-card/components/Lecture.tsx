@@ -12,6 +12,7 @@ import { ErrorDB } from '../../defaultToast'
 import Modal from '../../ui/actions/Modal'
 import BtnCircle from '../../ui/actions/btnCircle'
 import Select from '../../ui/data_input/select'
+import { action, lg } from '../../ui/styles/vars'
 
 interface LectureProps extends ComponentProps<any> {
   flashCardName: string
@@ -86,8 +87,8 @@ const Lecture: Component<LectureProps> = (props: LectureProps) => {
   
   const openModalBtn = 
     <BtnCircle
-        color='action'
-        size='lg'
+        color={action}
+        size={lg}
         style='right: 10%'
         class='fixed bottom-32'
       >
