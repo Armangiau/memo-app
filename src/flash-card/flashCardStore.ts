@@ -1,10 +1,13 @@
-import { produce } from 'solid-js/store'
+import { produce, createStore } from 'solid-js/store'
 import {
   createContext,
+  createDeferred,
+  createEffect,
+  createSignal,
   useContext
 } from 'solid-js'
 import { Context } from 'solid-js'
-import { createPersistantStore } from '../web_api/storeInMemory'
+import { createLocalStorageSignal, load, persistent } from '../web_api/storeInMemory'
 
 type QestRep = {
   question: string
@@ -17,26 +20,29 @@ const emptyQuestRep = {
 }
 
 export const flashCardStore = (flashCardName: string) => {
-  const [questionsRéponses, setQuestionsRéponses, setInDB] = createPersistantStore({qr: [emptyQuestRep]}, flashCardName)
+  const [questionsRéponses, setQuestionsRéponses] = createStore<QestRep>([emptyQuestRep])
+  createEffect(() => load(flashCardName)() ? setQuestionsRéponses(load(flashCardName)() as QestRep) : undefined)
+  createEffect(() => persistent(questionsRéponses, flashCardName))
 
   const store = {
     questionsRéponses,
     mise_à_jour_qest (insex: number, newVal: string) {
-      setInDB(qestrep => {
-        qestrep.qr[insex].question = newVal
+      setQuestionsRéponses(qestrep => {
+        qestrep[insex].question = newVal
         return qestrep
       })
     },
+
     mise_à_jour_rép (insex: number, newVal: string) {
-      setInDB(qestrep => {
-        qestrep.qr[insex].réponse = newVal
+      setQuestionsRéponses(qestrep => {
+        qestrep[insex].réponse = newVal
         return qestrep
       })
     },
     nouvelles_questionRéponse () {
       setQuestionsRéponses(qestrep => {
         console.log(qestrep)
-        qestrep.qr.push(emptyQuestRep)
+        qestrep.push(emptyQuestRep)
         console.log(qestrep);
         
         return qestrep
@@ -45,7 +51,7 @@ export const flashCardStore = (flashCardName: string) => {
     },
     deleteQestRep(indexItemToDelete: number) {
       setQuestionsRéponses(qestrep => {
-        qestrep.qr.splice(indexItemToDelete)
+        qestrep.splice(indexItemToDelete)
         return qestrep
       })
       console.log(questionsRéponses)
