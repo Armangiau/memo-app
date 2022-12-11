@@ -49,7 +49,9 @@ const Lecture: Component<LectureProps> = (props: LectureProps) => {
           resolve()
         }
       })
-    })
+      
+      document.addEventListener('touchend', resolve)
+     }) 
 
   const lecture_questionRéponse = async (
     flashCardName: string,
