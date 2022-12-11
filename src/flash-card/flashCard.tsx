@@ -1,4 +1,4 @@
-import { Component, ComponentProps, For, lazy } from 'solid-js'
+import { Component, ComponentProps, createDeferred, createEffect, For, lazy } from 'solid-js'
 import PlusSVGlg from '../ui/svg/plusSVGlg'
 import DeleteQestRep from './components/deleteQestRep'
 import Input from '../ui/data_input/input'
@@ -83,7 +83,10 @@ const flashCard: Component<flashCardProps> = (props: flashCardProps) => {
       })
       .catch(err => console.log(err))
   }
-
+  createEffect(() => {
+    console.log(questionsRéponses)
+  })
+  
   return (
     <>
       <h1 class={`font-title text-center ${titleSize} m-2 lg:m-4`}>
@@ -93,7 +96,7 @@ const flashCard: Component<flashCardProps> = (props: flashCardProps) => {
         class='my-5 mx-auto text-center max-w-4xl flex flex-col px-3'
         ref={allQuestRepNode}
       >
-        <For each={questionsRéponses.qr}>
+        <For each={questionsRéponses}>
           {(questionRéponse, index) => {
             const { question, réponse } = questionRéponse
             return (
