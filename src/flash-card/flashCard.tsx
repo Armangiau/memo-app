@@ -7,6 +7,7 @@ import BtnCircle from '../ui/actions/btnCircle'
 import { titleSize } from './flashCard.css'
 import { useFlashCard } from './flashCardStore'
 import { body } from '../gloabalFuncUtilities'
+import { lg, secondary } from '../ui/styles/vars'
 
 const Lecture = lazy(() => import('./components/Lecture'))
 
@@ -30,18 +31,25 @@ const flashCard: Component<flashCardProps>  = (props: flashCardProps) => {
     })
 
   let allQuestRepNode: HTMLDivElement | undefined
+  let indexOfHover: number = 0
 
-  const indexOfMousePosition = () => {}
+  const indexOfMousePosition = (childsNumb: number, height: number, hfromTop: number): number => {
+    return 0
+  }
+
+  const changeIndex = (index: number): number => {
+    return index
+  }
 
   const mousemove = (e: MouseEvent) => {
     if (!allQuestRepNode) return
     const target = e.currentTarget as HTMLDivElement
-    const childsNumb = allQuestRepNode.childElementCount
-    const height = target.clientHeight
     const x = e.clientX,
       y = e.clientY
     target.style.top = `${x}px`
     target.style.left = `${y}px`
+    const index = indexOfMousePosition(allQuestRepNode.childElementCount, allQuestRepNode.offsetTop, target.clientHeight)
+    indexOfHover = index === indexOfHover ? index : changeIndex(index)
   }
 
   const dragStart = (target: HTMLElement, evt: MouseEvent) => {
@@ -108,7 +116,7 @@ const flashCard: Component<flashCardProps>  = (props: flashCardProps) => {
                 />
                 <Textarea
                   class='w-10/12 sm:w-4/5 mb-4 ml-2 sm:ml-20'
-                  color='secondary'
+                  color={secondary}
                   placeholder='réponse'
                   onChange={evt => {
                     mise_à_jour_rép(index(), evt.currentTarget.value)
@@ -124,7 +132,7 @@ const flashCard: Component<flashCardProps>  = (props: flashCardProps) => {
         <BtnCircle
           color='secondary'
           fill='light'
-          size='lg'
+          size={lg}
           onClick={nouvelles_questionRéponse}
           class='bottom-20 right-10 mx-auto'
         >
